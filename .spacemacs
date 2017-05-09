@@ -46,6 +46,7 @@ values."
      auto-completion
      syntax-checking
      evil-cleverparens
+     org
      helm
      emacs-lisp
      (shell :variables
@@ -54,7 +55,6 @@ values."
             shell-default-height 25
             shell-default-position 'bottom)
      ;; markdown
-     ;; org
      ;; spell-checking
      ;; version-control
      )

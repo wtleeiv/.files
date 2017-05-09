@@ -1,8 +1,5 @@
 export PS1=")o( "
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/share/dotnet:/usr/local/share/tf
-export PKG_CONFIG_PATH=/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig
-
 alias ls="ls -G"
 alias ..="cd .."
 alias ...="cd ../.."
