@@ -1,8 +1,0 @@
-* heading
-** subheading
-*** another one 
-**** yet another
-***** and another...
-****** still??
-******* keep goin
-******** jfkdl
