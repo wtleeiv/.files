@@ -1,4 +1,6 @@
 export PS1=")o( "
+export EDITOR="vim"
+export VISUAL="vim"
 
 alias ls="ls -G"
 alias ..="cd .."
