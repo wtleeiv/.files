@@ -18,3 +18,4 @@ alias grep="grep --color"
 alias less="less -R"
 
 alias clip="xclip -sel clip"
+alias x="chmod +x"
