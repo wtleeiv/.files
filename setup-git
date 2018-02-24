@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# push only current branch (and get rid of annoying msg)
+git config --global push.default simple
+# remember credentials in memory (15 min)
+git config --global credential.helper cache
+# account info
+git config --global user.name "Tyler Lee"
+git config --global user.email "wtleeiv@gmail.com"
