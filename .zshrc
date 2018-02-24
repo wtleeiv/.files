@@ -1,22 +1,20 @@
 # Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
 setopt autocd
-unsetopt beep extendedglob notify
+unsetopt beep extendedglob nomatch
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/wtleeiv/.zshrc'
+zstyle :compinstall filename '/home/ty/.zshrc'
 
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-export PS1="%)o( "
-export EDITOR="vim"
-export VISUAL="vim"
-export TERM="rxvt-unicode"
-export PATH="/home/wtleeiv/.miniconda3/bin:$PATH"
-
 alias ls="ls --color"
 alias grep="grep --color"
+alias less="less -R"
 
-alias http="python -m http.server"
+alias clip="xclip -sel clip"
