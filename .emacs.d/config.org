@@ -1,0 +1,110 @@
+#+TITLE: Emacs Config
+#+AUTHOR: Tyler Lee
+#+EMAIL: wtleeiv@gmail.com
+
+* TODOs
+- fill-length
+  - 65 :: 1/2 screen-width
+
+* global
+
+** setup
+
+Window settings.
+#+BEGIN_SRC emacs-lisp
+  (menu-bar-mode 0)
+  (blink-cursor-mode 0)
+  (scroll-bar-mode 0)
+  (tool-bar-mode 0)
+#+END_SRC
+
+Source directory location.
+#+BEGIN_SRC emacs-lisp
+  (setq source-directory "~/.emacs.d/src/")
+#+END_SRC
+
+Backup all files in one place. Flat, no tree structure, ! as dir-separator.
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+  (setq auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t)))
+#+END_SRC
+
+Don't present the usual startup message, and clear the scratch buffer.
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message nil)
+#+END_SRC
+
+Add file sizes in human-readable units (KB, MB, etc) to dired buffers.
+#+BEGIN_SRC emacs-lisp
+  (setq-default dired-listing-switches "-alh")
+#+END_SRC
+
+When something changes a file, automatically refresh the
+buffer containing that file so they can't get out of sync.
+#+BEGIN_SRC emacs-lisp
+  (global-auto-revert-mode t)
+#+END_SRC
+
+** cosmetics
+
+Color theme.
+#+BEGIN_SRC emacs-lisp
+(load-theme 'noctilux t)
+(set-cursor-color "dim gray")
+#+END_SRC
+
+Font.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'default-frame-alist
+                       '(font . "Source Code Pro-11"))
+#+END_SRC
+
+Show matching parentheses.
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode t)
+  (setq show-paren-delay 0.0)
+#+END_SRC
+
+Syntax highlight whenever possible.
+#+BEGIN_SRC emacs-lisp
+  (global-font-lock-mode t)
+  (setq org-src-fontify-natively t)
+#+END_SRC
+
+** functionality
+
+Delete trailing whitespace every time a buffer is saved.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+
+When opening a file, always follow symlinks.
+#+BEGIN_SRC emacs-lisp
+  (setq vc-follow-symlinks t)
+#+END_SRC
+
+When saving a file that starts with `#!', make it executable.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'after-save-hook
+            'executable-make-buffer-file-executable-if-script-p)
+#+END_SRC
+
+One space after periods.
+#+BEGIN_SRC emacs-lisp
+  (setq sentence-end-double-space nil)
+#+END_SRC
+
+
+If you save a file that doesn't end with a newline,
+automatically append one.
+#+BEGIN_SRC emacs-lisp
+  (setq require-final-newline t)
+#+END_SRC
+
+Alias 'yes/no?' to 'y/n?'.
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+* languages
