@@ -1,14 +1,19 @@
-#+TITLE: Emacs Config
+r#+TITLE: Emacs Config
 #+AUTHOR: Tyler Lee
 #+EMAIL: wtleeiv@gmail.com
-
+* migration
+Initial migration setup.
+[[https://github.com/politza/pdf-tools][pdf-tools]] :: install libs
 * TODOs
 - fill-length
   - 65 :: 1/2 screen-width
-
 * global
+Itsame, a Tyler!
+#+BEGIN_SRC emacs-lisp
+  (setq user-full-name "Tyler Lee"
+        user-mail-address "wtleeiv@gmail.com")
+#+END_SRC
 ** setup
-
 Install, set up, and require =use-package=.
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'use-package)
@@ -20,37 +25,37 @@ Install, set up, and require =use-package=.
   ;; load use-package
   (require 'use-package)
 #+END_SRC
-
+Set fill-column to half-page (on chromebook)
+#+BEGIN_SRC emacs-lisp
+  (set-fill-column 65)
+#+END_SRC
 Source directory location.
 #+BEGIN_SRC emacs-lisp
   (setq source-directory "~/.emacs.d/src/")
 #+END_SRC
-
-Backup all files in one place. Flat, no tree structure, ! as dir-separator.
+Backup all files in one place. Flat, no tree structure, ! as
+dir-separator.
 #+BEGIN_SRC emacs-lisp
-  (setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
-  (setq auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t)))
+    (setq backup-directory-alist '(("" . "~/.emacs.d/backup"))
+          auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t)))
 #+END_SRC
-
-Don't present the usual startup message, and clear the scratch buffer.
+Don't present the usual startup message, and clear the scratch
+buffer.
 #+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-message t)
-  (setq initial-scratch-message nil)
+  (setq inhibit-startup-message t
+        initial-scratch-message nil)
 #+END_SRC
-
-Add file sizes in human-readable units (KB, MB, etc) to dired buffers.
+Add file sizes in human-readable units (KB, MB, etc) to dired
+buffers.
 #+BEGIN_SRC emacs-lisp
   (setq-default dired-listing-switches "-alh")
 #+END_SRC
-
 When something changes a file, automatically refresh the
 buffer containing that file so they can't get out of sync.
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
 #+END_SRC
-
 ** cosmetics
-
 Color theme.
 #+BEGIN_SRC emacs-lisp
   (use-package noctilux-theme
@@ -58,60 +63,79 @@ Color theme.
                (load-theme 'noctilux t))
   (set-cursor-color "dim gray")
 #+END_SRC
-
 Font.
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist
                '(font . "Source Code Pro-11"))
 #+END_SRC
-
 Show matching parentheses.
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode t)
   (setq show-paren-delay 0.0)
 #+END_SRC
-
+Highlight current line when using graphical emacs.
+#+BEGIN_SRC emacs-lisp
+  (when window-system
+    (global-hl-line-mode))
+#+END_SRC
 Syntax highlight whenever possible.
 #+BEGIN_SRC emacs-lisp
   (global-font-lock-mode t)
 #+END_SRC
-
 ** functionality
-
 Delete trailing whitespace every time a buffer is saved.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
-
 When saving a file that starts with `#!', make it executable.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'after-save-hook
             'executable-make-buffer-file-executable-if-script-p)
 #+END_SRC
-
 One space after periods.
 #+BEGIN_SRC emacs-lisp
   (setq sentence-end-double-space nil)
 #+END_SRC
-
-If you save a file that doesn't end with a newline,
-automatically append one.
+If you save a file that doesn't end with a newline, automatically
+append one.
 #+BEGIN_SRC emacs-lisp
   (setq require-final-newline t)
 #+END_SRC
-
 Alias 'yes/no?' to 'y/n?'.
 #+BEGIN_SRC emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-
 * packages
+** ido
+Use ido everywhere.
+C-s :: next
+C-r :: pref
+C-j :: new buffer if filename-prefix
+#+BEGIN_SRC emacs-lisp
+  (setq ido-enable-flex-matching t
+        ido-everywhere t)
+  (ido-mode t)
+#+END_SRC
+** uniquify
+Unique buffer names.
+#+BEGIN_SRC emacs-lisp
+  (setq uniquify-buffer-name-style 'post-forward)
+#+END_SRC
 ** org-mode
 Syntax highlight code.
 Tab format code.
 #+BEGIN_SRC emacs-lisp
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
+    (setq org-src-fontify-natively t
+          org-src-tab-acts-natively t)
 #+END_SRC
-
+** pdf-tools
+=pdf-tools-install= required.
+Override midnight mode colors.
+C-c C-r m :: toggle midnight-mode
+#+BEGIN_SRC emacs-lisp
+    (use-package pdf-tools
+      :config
+      (pdf-tools-install)
+      (setq pdf-view-midnight-colors '("#ffffff" . "#000000")))
+#+END_SRC
 * languages
