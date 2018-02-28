@@ -9,12 +9,6 @@
 * global
 ** setup
 
-When opening a file, always follow symlinks.
-My init.el and config.org are symlinks, so set this early.
-#+BEGIN_SRC emacs-lisp
-  (setq vc-follow-symlinks t)
-#+END_SRC
-
 Install, set up, and require =use-package=.
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'use-package)
@@ -25,14 +19,6 @@ Install, set up, and require =use-package=.
   (setq use-package-always-ensure t)
   ;; load use-package
   (require 'use-package)
-#+END_SRC
-
-Window settings.
-#+BEGIN_SRC emacs-lisp
-  (menu-bar-mode 0)
-  (blink-cursor-mode 0)
-  (scroll-bar-mode 0)
-  (tool-bar-mode 0)
 #+END_SRC
 
 Source directory location.
