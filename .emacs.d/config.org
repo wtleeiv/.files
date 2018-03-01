@@ -1,10 +1,14 @@
-r#+TITLE: Emacs Config
+#+TITLE: Emacs Config
 #+AUTHOR: Tyler Lee
 #+EMAIL: wtleeiv@gmail.com
 * migration
 Initial migration setup.
 [[https://github.com/politza/pdf-tools][pdf-tools]] :: install libs
 * TODOs
+** test
+(eq (window-system) 'x)
+on chromebook
+
 - fill-length
   - 65 :: 1/2 screen-width
 * global
@@ -67,7 +71,9 @@ Color theme.
 Font.
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist
-               '(font . "Source Code Pro-11"))
+               `(font . ,(if (eq (window-system) 'x)
+                             "Source Code Pro-11"
+                           "Source Code Pro-13")))
 #+END_SRC
 Show matching parentheses.
 #+BEGIN_SRC emacs-lisp
@@ -134,9 +140,10 @@ Tab format code.
 Override midnight mode colors.
 C-c C-r m :: toggle midnight-mode
 #+BEGIN_SRC emacs-lisp
-  (use-package pdf-tools
-    :config
-    (pdf-tools-install)
-    (setq pdf-view-midnight-colors '("#ffffff" . "#000000")))
+  (when (eq (window-system) 'x) ; linux graphical
+    (use-package pdf-tools
+      :config
+      (pdf-tools-install)
+      (setq pdf-view-midnight-colors '("#ffffff" . "#000000"))))
 #+END_SRC
 * languages
