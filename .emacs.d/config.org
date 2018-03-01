@@ -17,8 +17,9 @@ Itsame, a Tyler!
 Install, set up, and require =use-package=.
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
     (package-install 'use-package))
-  ;; warn long load times
+  ;; log load times in *Messages*
   (setq use-package-verbose t)
   ;; auto-install packages
   (setq use-package-always-ensure t)
@@ -125,17 +126,17 @@ Unique buffer names.
 Syntax highlight code.
 Tab format code.
 #+BEGIN_SRC emacs-lisp
-    (setq org-src-fontify-natively t
-          org-src-tab-acts-natively t)
+  (setq org-src-fontify-natively t
+        org-src-tab-acts-natively t)
 #+END_SRC
 ** pdf-tools
 =pdf-tools-install= required.
 Override midnight mode colors.
 C-c C-r m :: toggle midnight-mode
 #+BEGIN_SRC emacs-lisp
-    (use-package pdf-tools
-      :config
-      (pdf-tools-install)
-      (setq pdf-view-midnight-colors '("#ffffff" . "#000000")))
+  (use-package pdf-tools
+    :config
+    (pdf-tools-install)
+    (setq pdf-view-midnight-colors '("#ffffff" . "#000000")))
 #+END_SRC
 * languages
