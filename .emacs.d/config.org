@@ -1,16 +1,17 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Tyler Lee
 #+EMAIL: wtleeiv@gmail.com
-* migration
-Initial migration setup.
-[[https://github.com/politza/pdf-tools][pdf-tools]] :: install libs
 * TODOs
 ** test
-(eq (window-system) 'x)
+(eq window-system 'x)
 on chromebook
+$SHELL path fn
 
 - fill-length
   - 65 :: 1/2 screen-width
+* migration
+Initial migration setup.
+[[https://github.com/politza/pdf-tools][pdf-tools]] :: install libs
 * global
 Itsame, a Tyler!
 #+BEGIN_SRC emacs-lisp
@@ -24,11 +25,22 @@ Install, set up, and require =use-package=.
     (package-refresh-contents)
     (package-install 'use-package))
   ;; log load times in *Messages*
-  (setq use-package-verbose t)
   ;; auto-install packages
-  (setq use-package-always-ensure t)
+  (setq use-package-verbose t
+        use-package-always-ensure t)
   ;; load use-package
   (require 'use-package)
+#+END_SRC
+Inherit PATH from SHELL.
+#+BEGIN_SRC emacs-lisp
+  (defun ty/inherit-PATH-from-SHELL ()
+    (let ((shell-path (shell-command-to-string "$SHELL -i -c 'echo $PATH'")))
+      ;; -i :: interactive shell
+      ;; -c :: read command from string
+      (setenv "PATH" shell-path)
+      (setq exec-path (split-string shell-path path-separator))))
+  (when window-system
+    (ty/inherit-PATH-from-SHELL))
 #+END_SRC
 Set fill-column to half-page (on chromebook)
 #+BEGIN_SRC emacs-lisp
@@ -128,13 +140,6 @@ Unique buffer names.
 #+BEGIN_SRC emacs-lisp
   (setq uniquify-buffer-name-style 'post-forward)
 #+END_SRC
-** org-mode
-Syntax highlight code.
-Tab format code.
-#+BEGIN_SRC emacs-lisp
-  (setq org-src-fontify-natively t
-        org-src-tab-acts-natively t)
-#+END_SRC
 ** pdf-tools
 =pdf-tools-install= required.
 Override midnight mode colors.
@@ -147,3 +152,23 @@ C-c C-r m :: toggle midnight-mode
       (setq pdf-view-midnight-colors '("#ffffff" . "#000000"))))
 #+END_SRC
 * languages
+** python
+#+BEGIN_SRC emacs-lisp
+  (use-package ob-ipython)
+#+END_SRC
+* org
+Syntax highlight code.
+Tab format code.
+Don't ask before running code w/ C-c C-c.
+#+BEGIN_SRC emacs-lisp
+    (setq org-src-fontify-natively t
+          org-src-tab-acts-natively t
+          org-confirm-babel-evaluate nil)
+#+END_SRC
+Enable languages within org.
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (ipython . t)))
+#+END_SRC
