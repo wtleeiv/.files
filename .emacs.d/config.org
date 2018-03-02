@@ -24,7 +24,7 @@ Itsame, a Tyler!
 
 ** setup
 
-Install, set up, and require =use-package=.
+Install, set up, and require ~use-package~.
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
@@ -150,48 +150,21 @@ Alias 'yes/no?' to 'y/n?'.
   (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-* languages
-
-** lisp
-
-Sly is installed by roswell.
-#+BEGIN_SRC emacs-lisp
-  (load (expand-file-name "~/.roswell/helper.el"))
-#+END_SRC
-
-** python
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ob-ipython
-    :defer t)
-#+END_SRC
-
-* packages
-
-** uniquify
-
 Unique buffer names.
 #+BEGIN_SRC emacs-lisp
   (setq uniquify-buffer-name-style 'post-forward)
 #+END_SRC
 
-** pdf-tools
-
-=pdf-tools-install= required.
-Override midnight mode colors.
-C-c C-r m :: toggle midnight-mode
-#+BEGIN_SRC emacs-lisp
-  (when (eq window-system 'x) ; linux graphical
-    (use-package pdf-tools
-      :defer t
-      :config
-      (pdf-tools-install)
-      (setq pdf-view-midnight-colors '("#ffffff" . "#000000"))))
-#+END_SRC
+* packages
 
 ** ivy
 
+Install counsel if needed. Counsel pulls in ivy/swiper as
+dependencies. Initialize ivy.
 #+BEGIN_SRC emacs-lisp
+  (when (not (package-installed-p 'counsel))
+    (package-install 'counsel))
+
   (use-package ivy
     :config
     (setq ivy-use-virtual-buffers t
@@ -209,7 +182,6 @@ C-c C-r m :: toggle midnight-mode
   (global-set-key (kbd "C-c L") 'counsel-find-library)
   (global-set-key (kbd "C-c U") 'counsel-unicode-char)
 #+END_SRC
-
 ** org
 
 Syntax highlight code.
@@ -227,4 +199,70 @@ Enable languages within org.
    'org-babel-load-languages
    '((emacs-lisp . t)
      (ipython . t)))
+#+END_SRC
+
+** magit
+
+Bind to =C-c g=
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :bind ("C-c g" . magit-status))
+#+END_SRC
+
+** company
+
+Enable company everywhere.
+C-h :: view docs (f1)
+C-w :: view source
+#+BEGIN_SRC emacs-lisp
+  (use-package company)
+  (add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+
+** flycheck
+
+Enable everywhere.
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :init (global-flycheck-mode))
+#+END_SRC
+
+** pdf-tools
+
+~pdf-tools-install~ required for setup.
+Override midnight mode colors.
+C-c C-r m :: toggle midnight-mode
+#+BEGIN_SRC emacs-lisp
+  (when (eq window-system 'x) ; linux graphical
+    (use-package pdf-tools
+      :defer t
+      :config
+      (pdf-tools-install)
+      (setq pdf-view-midnight-colors '("#ffffff" . "#000000"))))
+#+END_SRC
+
+* languages
+
+** lisp
+
+Sly is installed by roswell.
+#+BEGIN_SRC emacs-lisp
+(when (eq window-system 'x)
+  (load (expand-file-name "~/.roswell/helper.el")))
+#+END_SRC
+
+** python
+
+Use elpy, ipython interpreter, org-ipython.
+Remove flymake from elpy.
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :config
+    (elpy-enable)
+    (setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt")
+    (setq elpy-modules (remq 'elpy-module-flymake elpy-modules)))
+
+  (use-package ob-ipython
+    :defer t)
 #+END_SRC
