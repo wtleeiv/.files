@@ -93,7 +93,10 @@ Color theme.
   (use-package noctilux-theme
                :config
                (load-theme 'noctilux t))
-  (set-cursor-color "dim gray")
+  (set-cursor-color "#ccaaff")
+  (set-face-attribute 'show-paren-match "#ccaaff")
+  (set-face-background 'show-paren-match (face-background 'default))
+  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 #+END_SRC
 
 Font.
@@ -250,8 +253,15 @@ C-c C-r m :: toggle midnight-mode
 
 Sly is installed by roswell.
 #+BEGIN_SRC emacs-lisp
-(when (eq window-system 'x)
-  (load (expand-file-name "~/.roswell/helper.el")))
+  (when (eq window-system 'x)
+    (load (expand-file-name "~/.roswell/helper.el")))
+
+  (defun ty/use-lispy ()
+    (lispy-mode 1))
+
+  (use-package lispy
+    :config
+    (add-hook 'emacs-lisp-mode-hook 'ty/use-lispy))
 #+END_SRC
 
 ** python
