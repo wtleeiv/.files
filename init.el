@@ -2,8 +2,12 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (blink-cursor-mode 0)
-;; start fullscreen
-(toggle-frame-fullscreen)
+
+(when (eq window-system 'w32)
+  ;; start fullscreen
+  ;;(toggle-frame-fullscreen)
+  ;; maximized when not fullscreen
+  (toggle-frame-maximized))
 
 (require 'package)
 (add-to-list 'package-archives
@@ -117,20 +121,8 @@
 
 ;;; lisp
 
-(load (expand-file-name "~/.roswell/helper.el"))
-
-(add-to-list 'load-path "~/.emacs.d/code/slime-company/")
-(require 'slime-company)
-(add-hook 'lisp-mode-hook 'slime-company-maybe-enable)
-(add-hook 'slime-repl-mode-hook 'slime-company-maybe-enable)
-(define-key company-active-map (kbd "M-.") 'company-show-location)
-(define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
-
-(use-package paredit
-  :config
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'slime-repl-mode-hook 'enable-paredit-mode))
+(setq inferior-lisp-program "ros run")
+(require 'sly-autoloads)
 
 ;; echo arg list
 (require 'eldoc)
@@ -207,17 +199,3 @@
 (when (eq window-system 'w32)
   (setq explicit-shell-file-name "c:/cygwin64/bin/bash.exe")
   (defalias 'gcc 'gcc.exe))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (company-auctex use-package paredit ob-ipython noctilux-theme magit macrostep latex-extra flycheck elpy counsel company-anaconda aggressive-indent))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
