@@ -1,4 +1,4 @@
 xrdb -load ~/.Xresources
-setxkbmap dvorak
+setxkbmap -variant dvp
 xmodmap ~/.keyswap
 exec i3
