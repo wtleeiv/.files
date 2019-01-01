@@ -41,7 +41,9 @@
 ;; move windows with S-<arrow>
 (windmove-default-keybindings)
 
-(set-face-attribute 'default nil :family "Siddhanta Mono" :height 120)
+(if (eq window-system 'x)
+	(set-face-attribute 'default nil :family "Source Code Pro" :height 110)
+	(set-face-attribute 'default nil :family "Siddhanta Mono" :height 120))
 
 (global-linum-mode t)
 (global-hl-line-mode t)
@@ -121,9 +123,16 @@
 
 ;;; lisp
 
-(setq inferior-lisp-program "ros run")
-(require 'sly-autoloads)
-
+(if (eq window-system 'x)
+    (load "~/.roswell/helper.el")
+  (progn
+    (setq inferior-lisp-program "ros run")
+    (require 'sly-autoloads)))
+;; paredit
+(require 'paredit)
+(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+(add-hook 'sly-mrepl-mode-hook 'paredit-mode)
+(add-hook 'lisp-mode-hook 'paredit-mode)
 ;; echo arg list
 (require 'eldoc)
 (eldoc-add-command
