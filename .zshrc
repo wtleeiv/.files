@@ -19,5 +19,5 @@ alias less="less -R"
 
 alias clip="xclip -sel clip"
 alias x="chmod +x"
-alias aoeu="setxkbmap us"
-alias asdf="setxkbmap -variant dvp"
+alias aoeu="setxkbmap us && xmodmap ~/.keyswap"
+alias asdf="setxkbmap -variant dvp && xmodmap ~/.keyswap"
