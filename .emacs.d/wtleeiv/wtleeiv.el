@@ -1,21 +1,31 @@
-;;;; Notes
-;; package-refresh-contents :: update package list
-;; package-install :: install package
+(defun wtleeiv-install-packages (pkg-list)
+  (package-refresh-contents)
+  (dolist (pkg pkg-list)
+    (package-install pkg)))
 
-;;;; Packages
-;; doom-modeline
-;; counsel
-;; magit
-;; paredit
-;; company-quickhelp
-;; slime-company
-;; ob-ipython
-;; company-anaconda
+(defvar wtleeiv-common-packages
+  '(doom-modeline
+    counsel
+    magit
+    paredit
+    company-quickhelp
+    slime-company
+    ob-ipython
+    company-anaconda
+    expand-region))
+
+(defvar wtleeiv-latex-packages
+  '(latex-extra
+    company-auctex))
+
+(defvar wtleeiv-linux-packages
+  '(pdf-tools))
 
 (require 'wtleeiv-package)
+(when (window-system)
+  (require 'wtleeiv-frame))
 (require 'wtleeiv-general)
 (require 'wtleeiv-counsel)
-(require 'wtleeiv-magit)
 (require 'wtleeiv-paste)
 (require 'wtleeiv-lisp)
 (require 'wtleeiv-paredit)
@@ -29,19 +39,5 @@
 (when (eq window-system 'w32)
   (require 'wtleeiv-windows))
 (require 'wtleeiv-keybindings)
-(when (window-system)
-  (require 'wtleeiv-frame))
-
-;; ;; syntax checking
-;; (use-package flycheck
-;;              :defer t
-;;              :config (global-flycheck-mode))
-
-;; ;;; Lisp
-;; ;; echo arg list
-;; (require 'eldoc)
-;; (eldoc-add-command
-;;  'paredit-backward-delete
-;;  'paredit-close-round)
 
 (provide 'wtleeiv)

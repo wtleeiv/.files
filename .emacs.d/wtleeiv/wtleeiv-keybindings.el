@@ -24,10 +24,17 @@
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "C-c f") 'counsel-rg)
 
-(global-set-key (kbd "C-c g") 'magit-status)
-
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
+
+(require 'magit)
+(setq magit-no-confirm '(stage-all-changes unstage-all-changes))
+(global-set-key (kbd "C-c g") 'magit-status)
+
+(require 'expand-region)
+(global-set-key (kbd "C-q") 'er/expand-region)
+;; Workaround for https://github.com/magnars/expand-region.el/issues/220
+(setq shift-select-mode nil)
 
 (provide 'wtleeiv-keybindings)

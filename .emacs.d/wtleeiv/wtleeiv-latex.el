@@ -5,8 +5,8 @@
 ;; multi file documents (or \include \input)
 (setq-default TeX-master nil)
 
-;; (require 'latex-extra)
-;; (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
+(require 'latex-extra)
+(add-hook 'LaTeX-mode-hook #'latex-extra-mode)
 
 (require 'company-auctex)
 (company-auctex-init)
