@@ -1,0 +1,14 @@
+;;; Load quicklisp
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames ".quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+;;; Configure quicklisp
+#+quicklisp
+(pushnew (pathname "c:/Users/frlee/Dropbox/common-lisp/")
+	 ql:*local-project-directories*)
+(defmacro load-in (package)
+  `(progn (ql:quickload ,package)
+          (in-package ,package)))
