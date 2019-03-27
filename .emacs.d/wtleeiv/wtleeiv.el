@@ -40,4 +40,6 @@
   (require 'wtleeiv-windows))
 (require 'wtleeiv-keybindings)
 
+;; (require 'wtleeiv-latex)
+
 (provide 'wtleeiv)
