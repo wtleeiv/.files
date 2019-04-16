@@ -32,6 +32,7 @@
 (require 'wtleeiv-company)
 (require 'wtleeiv-python)
 (require 'wtleeiv-forth)
+(require 'wtleeiv-factor)
 (require 'wtleeiv-org)
 (require 'wtleeiv-eshell)
 (when (eq window-system 'x)

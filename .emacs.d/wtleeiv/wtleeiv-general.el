@@ -37,4 +37,8 @@
 (add-hook 'before-save-hook
 	  'delete-trailing-whitespace)
 
+;; start emacs server
+;;; connect with :: emacsclient <file> in shell
+(server-start)
+
 (provide 'wtleeiv-general)
