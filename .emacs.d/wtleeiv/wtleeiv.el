@@ -19,7 +19,8 @@
     company-auctex))
 
 (defvar wtleeiv-linux-packages
-  '(pdf-tools))
+  '(pdf-tools
+    exec-path-from-shell))
 
 (require 'wtleeiv-package)
 (when (window-system)
@@ -32,7 +33,7 @@
 (require 'wtleeiv-company)
 (require 'wtleeiv-python)
 (require 'wtleeiv-forth)
-(require 'wtleeiv-factor)
+;;(require 'wtleeiv-factor)
 (require 'wtleeiv-org)
 (require 'wtleeiv-eshell)
 (when (eq window-system 'x)

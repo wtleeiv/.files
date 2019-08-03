@@ -1,5 +1,3 @@
-inoremap fd <esc>
-
 syntax enable
 filetype indent on
 
