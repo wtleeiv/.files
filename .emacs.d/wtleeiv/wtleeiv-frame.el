@@ -3,6 +3,8 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 
+(global-hl-line-mode t)
+
 (add-to-list 'default-frame-alist
              '(font . "Noto Mono-10:antialias=subpixel"))
 

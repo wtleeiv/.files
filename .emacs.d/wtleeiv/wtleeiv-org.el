@@ -8,6 +8,7 @@
       org-src-fontify-natively t
       org-src-tab-acts-natively t
       org-confirm-babel-evaluate nil
+      org-src-preserve-indentation t
       org-refile-targets '((org-agenda-files . (:level . 1)))
       org-agenda-custom-commands '(("n" "Agenda and TODOs"
 				    ((agenda "")

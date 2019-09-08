@@ -5,7 +5,8 @@
       backup-directory-alist '(("" . "~/.emacs.d/backup"))
       auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t)))
 
-(setq vc-follow-symlinks t
+(setq indent-tabs-mode nil
+      vc-follow-symlinks t
       require-final-newline t
       inhibit-startup-message t
       ring-bell-function 'ignore

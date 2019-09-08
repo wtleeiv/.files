@@ -6,4 +6,6 @@
 (add-to-list 'company-backends 'company-anaconda)
 (add-hook 'python-mode-hook 'anaconda-mode)
 
+(require 'realgud)
+
 (provide 'wtleeiv-python)
