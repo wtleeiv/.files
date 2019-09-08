@@ -6,6 +6,7 @@
 (add-to-list 'company-backends 'company-anaconda)
 (add-hook 'python-mode-hook 'anaconda-mode)
 
-(require 'realgud)
+;; generic dubugger
+;;(require 'realgud)
 
 (provide 'wtleeiv-python)

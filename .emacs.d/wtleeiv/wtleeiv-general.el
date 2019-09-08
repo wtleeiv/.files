@@ -21,6 +21,9 @@
 (require 'doom-modeline)
 (doom-modeline-mode 1)
 
+(require 'which-key)
+(which-key-mode)
+
 (blink-cursor-mode 0)
 (global-hl-line-mode t)
 (global-display-line-numbers-mode 1)

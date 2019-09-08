@@ -13,10 +13,11 @@
     ob-ipython
     company-anaconda
     expand-region
-    real-gud
+    ;; real-gud
     clojure-mode
     cider
     tide
+    which-key
     noctilux-theme
     kaolin-themes))
 
@@ -35,9 +36,11 @@
 (require 'wtleeiv-counsel)
 (require 'wtleeiv-paste)
 (require 'wtleeiv-lisp)
+(require 'wtleeiv-clojure)
 (require 'wtleeiv-paredit)
 (require 'wtleeiv-company)
 (require 'wtleeiv-python)
+(require 'wtleeiv-typescript)
 (require 'wtleeiv-forth)
 ;;(require 'wtleeiv-factor)
 (require 'wtleeiv-org)
