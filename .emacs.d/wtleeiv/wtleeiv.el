@@ -12,7 +12,13 @@
     slime-company
     ob-ipython
     company-anaconda
-    expand-region))
+    expand-region
+    real-gud
+    clojure-mode
+    cider
+    tide
+    noctilux-theme
+    kaolin-themes))
 
 (defvar wtleeiv-latex-packages
   '(latex-extra
