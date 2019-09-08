@@ -7,7 +7,7 @@
 (global-hl-line-mode t)
 
 (add-to-list 'default-frame-alist
-             '(font . "Noto Mono-12:antialias=subpixel"))
+             '(font . "Noto Mono-10:antialias=subpixel"))
 
 (require 'kaolin-themes)
 (load-theme 'kaolin-eclipse t)

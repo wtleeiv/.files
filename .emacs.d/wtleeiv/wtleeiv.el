@@ -4,9 +4,9 @@
     (package-install pkg)))
 
 (defvar wtleeiv-common-packages
-  '(doom-modeline
+  '(magit
+    ;; doom-modeline
     counsel
-    magit
     paredit
     company-quickhelp
     slime-company

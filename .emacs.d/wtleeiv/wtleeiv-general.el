@@ -18,8 +18,8 @@
 (show-paren-mode t)
 (setq show-paren-delay 0)
 
-(require 'doom-modeline)
-(doom-modeline-mode 1)
+;; (require 'doom-modeline)
+;; (doom-modeline-mode 1)
 
 (require 'which-key)
 (which-key-mode)
