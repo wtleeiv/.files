@@ -1,7 +1,9 @@
 (require 'company)
 
 (company-quickhelp-mode 1)
-(setq company-quickhelp-delay 0.7
+(setq company-minimum-prefix-length 1
+      company-idle-delay 0
+      company-quickhelp-delay 0
       company-tooltip-align-annotations t)
 
 (global-company-mode)

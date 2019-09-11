@@ -19,6 +19,8 @@
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "C-c f") 'counsel-rg)
 
+(global-set-key (kbd "M-\\") 'company-complete)
+
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -31,5 +33,8 @@
 (global-set-key (kbd "C-q") 'er/expand-region)
 ;; Workaround for https://github.com/magnars/expand-region.el/issues/220
 (setq shift-select-mode nil)
+
+(require 'neotree)
+(global-set-key (kbd "C-c d") 'neotree-toggle)
 
 (provide 'wtleeiv-keybindings)

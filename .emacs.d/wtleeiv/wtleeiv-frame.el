@@ -11,14 +11,17 @@
 
 (require 'kaolin-themes)
 (load-theme 'kaolin-eclipse t)
-;; (require 'noctilux-theme)
-;; (load-theme 'noctilux t)
-;; (set-cursor-color "#ccaaff")
-;; (set-face-background 'show-paren-match (face-background 'default))
-;; (set-face-attribute 'show-paren-match nil
-;; 		    :foreground "#ccaaff"
-;; 		    :weight 'bold
-;; 		    :underline t)
+
+(defun wtleeiv-noctilux-theme ()
+  "not run, but here if you need it"
+  (require 'noctilux-theme)
+  (load-theme 'noctilux t)
+  (set-cursor-color "#ccaaff")
+  (set-face-background 'show-paren-match (face-background 'default))
+  (set-face-attribute 'show-paren-match nil
+		      :foreground "#ccaaff"
+		      :weight 'bold
+		      :underline t))
 
 (add-hook 'emacs-startup-hook #'(lambda () (message "Happy hackses :)")))
 
