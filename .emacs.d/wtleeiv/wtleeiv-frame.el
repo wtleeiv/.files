@@ -6,6 +6,8 @@
 
 (global-hl-line-mode t)
 
+(toggle-frame-maximized)
+
 (add-to-list 'default-frame-alist
              '(font . "Noto Mono-10:antialias=subpixel"))
 

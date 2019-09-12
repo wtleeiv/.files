@@ -12,6 +12,7 @@
 (add-hook 'eval-expression-minibuffer-setup-hook 'enable-paredit-mode)
 
 (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+(add-hook 'cider-repl-mode-hook 'enable-paredit-mode)
 
 (defun override-slime-repl-bindings-with-paredit ()
   (define-key slime-repl-mode-map
