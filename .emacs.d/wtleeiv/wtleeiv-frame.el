@@ -25,6 +25,9 @@
 		      :weight 'bold
 		      :underline t))
 
+(set-frame-parameter (selected-frame) 'alpha '(66 . 50))
+(add-to-list 'default-frame-alist '(alpha . (66 . 50)))
+
 (add-hook 'emacs-startup-hook #'(lambda () (message "Happy hackses :)")))
 
 (provide 'wtleeiv-frame)
