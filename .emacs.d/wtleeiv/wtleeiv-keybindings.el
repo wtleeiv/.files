@@ -51,4 +51,9 @@
 
 (global-set-key (kbd "C-c t") 'toggle-transparency)
 
+(require 'xah-fly-keys)
+(xah-fly-keys-set-layout "programer-dvorak")
+(global-set-key (kbd "C-<return>") 'xah-fly-command-mode-activate-no-hook)
+(xah-fly-keys 1)
+
 (provide 'wtleeiv-keybindings)
