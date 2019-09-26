@@ -18,6 +18,10 @@
 			      ("l" "Learnal" entry (file+olp+datetree ,(concat org-directory "learnal.org"))
 			           "* %?" :tree-type week)))
 
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c l") 'org-store-link)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)

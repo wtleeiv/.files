@@ -16,15 +16,6 @@
 
 (global-set-key (kbd "C-c k") 'delete-this-buffer-and-file)
 
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-c f") 'counsel-rg)
-
-(global-set-key (kbd "M-\\") 'company-complete)
-
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c l") 'org-store-link)
-
 (require 'magit)
 (setq magit-no-confirm '(stage-all-changes unstage-all-changes))
 (global-set-key (kbd "C-c g") 'magit-status)
@@ -37,23 +28,13 @@
 (require 'neotree)
 (global-set-key (kbd "C-c d") 'neotree-toggle)
 
-(defun toggle-transparency ()
-  (interactive)
-  (let ((alpha (frame-parameter nil 'alpha)))
-    (set-frame-parameter
-     nil 'alpha
-     (if (eql (cond ((numberp alpha) alpha)
-                    ((numberp (cdr alpha)) (cdr alpha))
-                    ;; Also handle undocumented (<active> <inactive>) form.
-                    ((numberp (cadr alpha)) (cadr alpha)))
-              100)
-         '(66 . 50) '(100 . 100)))))
-
-(global-set-key (kbd "C-c t") 'toggle-transparency)
-
+(setq xah-fly-use-control-key nil)
 (require 'xah-fly-keys)
 (xah-fly-keys-set-layout "programer-dvorak")
-(global-set-key (kbd "C-<return>") 'xah-fly-command-mode-activate-no-hook)
 (xah-fly-keys 1)
+(define-key xah-fly-key-map (kbd "<home>") 'xah-fly-mode-toggle)
+(add-hook 'shell-mode-hook 'xah-fly-insert-mode-activate)
+(add-hook 'magit-mode-hook 'xah-fly-insert-mode-activate)
+(add-hook 'dired-mode-hook 'xah-fly-insert-mode-activate)
 
 (provide 'wtleeiv-keybindings)

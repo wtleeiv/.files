@@ -13,12 +13,13 @@
     ob-ipython
     company-anaconda
     expand-region
-    ;; real-gud
+    real-gud
     clojure-mode
     cider
     flycheck-joker
     tide
     which-key
+    xah-fly-keys
     noctilux-theme
     kaolin-themes))
 
@@ -34,18 +35,17 @@
 (when (window-system)
   (require 'wtleeiv-frame))
 (require 'wtleeiv-general)
-(require 'wtleeiv-counsel)
+;; (require 'wtleeiv-counsel)
 (require 'wtleeiv-paste)
 ;;(require 'wtleeiv-lisp)
 (require 'wtleeiv-clojure)
 (require 'wtleeiv-paredit)
 (require 'wtleeiv-company)
 (require 'wtleeiv-python)
-(require 'wtleeiv-typescript)
-(require 'wtleeiv-forth)
+;; (require 'wtleeiv-typescript)
+;; (require 'wtleeiv-forth)
 ;;(require 'wtleeiv-factor)
 (require 'wtleeiv-org)
-(require 'wtleeiv-eshell)
 (when (eq window-system 'x)
   (require 'wtleeiv-linux))
 (when (eq window-system 'w32)

@@ -18,15 +18,18 @@
 (show-paren-mode t)
 (setq show-paren-delay 0)
 
-;; (require 'doom-modeline)
-;; (doom-modeline-mode 1)
+(require 'ido)
+(setq ido-enable-flex-matching t
+      ido-everywhere t)
+(ido-mode 1)
 
 (require 'which-key)
 (which-key-mode)
 
 (blink-cursor-mode 0)
-(global-hl-line-mode t)
-(global-display-line-numbers-mode 1)
+(column-number-mode 1)
+;; (global-hl-line-mode t)
+;; (global-display-line-numbers-mode 1)
 
 ;; syntax highlighting
 (global-font-lock-mode t)

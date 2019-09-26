@@ -4,7 +4,7 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 
-(global-hl-line-mode t)
+;; (global-hl-line-mode t)
 
 (toggle-frame-maximized)
 
@@ -27,6 +27,20 @@
 
 (set-frame-parameter (selected-frame) 'alpha '(77 . 50))
 (add-to-list 'default-frame-alist '(alpha . (77 . 50)))
+
+(defun toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter
+     nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+                    ((numberp (cdr alpha)) (cdr alpha))
+                    ;; Also handle undocumented (<active> <inactive>) form.
+                    ((numberp (cadr alpha)) (cadr alpha)))
+              100)
+         '(77 . 50) '(100 . 100)))))
+
+(global-set-key (kbd "C-c t") 'toggle-transparency)
 
 (add-hook 'emacs-startup-hook #'(lambda () (message "Happy hackses :)")))
 
