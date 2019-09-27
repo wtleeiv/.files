@@ -29,7 +29,7 @@
 
 (blink-cursor-mode 0)
 (column-number-mode 1)
-;; (global-hl-line-mode t)
+(global-hl-line-mode t)
 ;; (global-display-line-numbers-mode 1)
 
 ;; syntax highlighting
