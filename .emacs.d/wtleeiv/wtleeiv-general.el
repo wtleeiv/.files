@@ -10,6 +10,7 @@
       require-final-newline t
       inhibit-startup-message t
       ring-bell-function 'ignore
+      confirm-kill-processes nil
       initial-scratch-message nil
       sentence-end-double-space nil
       uniquify-buffer-name-style 'post-forward)

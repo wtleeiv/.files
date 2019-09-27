@@ -5,7 +5,6 @@
 
 (defvar wtleeiv-common-packages
   '(magit
-    ;; doom-modeline
     counsel
     paredit
     company-quickhelp
