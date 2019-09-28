@@ -16,15 +16,6 @@
 
 (global-set-key (kbd "C-c k") 'delete-this-buffer-and-file)
 
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-c f") 'counsel-rg)
-
-(global-set-key (kbd "M-\\") 'company-complete)
-
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c l") 'org-store-link)
-
 (require 'magit)
 (setq magit-no-confirm '(stage-all-changes unstage-all-changes))
 (global-set-key (kbd "C-c g") 'magit-status)
@@ -36,5 +27,20 @@
 
 (require 'neotree)
 (global-set-key (kbd "C-c d") 'neotree-toggle)
+
+(setq xah-fly-use-control-key nil)
+(require 'xah-fly-keys)
+(xah-fly-keys-set-layout "programer-dvorak")
+(xah-fly-keys 1)
+(define-key xah-fly-key-map (kbd "<home>") 'xah-fly-mode-toggle)
+(add-hook 'xah-fly-command-mode-activate-hook
+	  (lambda ()
+	    (define-key xah-fly-key-map (kbd ";") 'xah-comment-dwim)))
+(add-hook 'xah-fly-command-mode-activate-hook
+	  (lambda ()
+	    (define-key xah-fly-key-map (kbd "'") 'xah-reformat-lines)))
+(add-hook 'shell-mode-hook 'xah-fly-insert-mode-activate)
+(add-hook 'magit-mode-hook 'xah-fly-insert-mode-activate)
+(add-hook 'dired-mode-hook 'xah-fly-insert-mode-activate)
 
 (provide 'wtleeiv-keybindings)
