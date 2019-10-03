@@ -39,7 +39,7 @@
 (require 'wtleeiv-general)
 ;; (require 'wtleeiv-counsel)
 (require 'wtleeiv-paste)
-;; (require 'wtleeiv-lisp)
+(require 'wtleeiv-lisp)
 (require 'wtleeiv-clojure)
 (require 'wtleeiv-paredit)
 (require 'wtleeiv-company)
