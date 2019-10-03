@@ -1,6 +1,8 @@
 syntax enable
 filetype indent on
 
+map! <Home> <Esc>
+
 set number
 set showcmd
 set cursorline

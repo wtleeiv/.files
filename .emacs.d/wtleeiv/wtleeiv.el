@@ -41,7 +41,7 @@
 (require 'wtleeiv-paredit)
 (require 'wtleeiv-company)
 (require 'wtleeiv-python)
-(require 'wtleeiv-typescript)
+;; (require 'wtleeiv-typescript)
 (require 'wtleeiv-forth)
 ;; (require 'wtleeiv-factor)
 (require 'wtleeiv-org)
