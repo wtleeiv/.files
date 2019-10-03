@@ -5,14 +5,17 @@
 
 (defvar wtleeiv-common-packages
   '(magit
-    counsel
+    ;; counsel
     paredit
     company-quickhelp
     slime-company
     ob-ipython
     company-anaconda
     expand-region
-    real-gud
+    realgud
+    forth-mode
+    neotree
+    smex
     clojure-mode
     cider
     flycheck-joker

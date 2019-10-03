@@ -1,8 +1,9 @@
-URxvt*font: xft:Source Code Pro:pixelsize=15
-URxvt*scrollBar: false
-URxvt*scrollTtyOutput: false
-URxvt*scrollWithBuffer: true
-URxvt*scrollTtyKeypress: true
+xterm*faceName: DejaVu Sans Mono Book
+xterm*faceSize: 11
+xterm*scrollBar: false
+xterm*scrollTtyOutput: false
+xterm*scrollWithBuffer: true
+xterm*scrollTtyKeypress: true
 
 *.background:   #202020
 *.foreground:   #cccccc
@@ -24,3 +25,6 @@ URxvt*scrollTtyKeypress: true
 *color14: #6ec2a8
 *color7:  #8d8d8d
 *color15: #dad3d3
+
+
+
