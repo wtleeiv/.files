@@ -1,4 +1,6 @@
 setxkbmap -variant dvp
 xmodmap ~/.keyswap
-xrdb -merge ~/.Xresources
+if [ -e ~/.Xresources ]; then
+    xrdb -merge ~/.Xresources
+fi
 exec i3
