@@ -1,5 +1,5 @@
-alias aoeu="setxkbmap us"
-alias asdf="setxkbmap -variant dvp && xmodmap ~/.keyswap"
+alias aoeu="qwerty.sh"
+alias asdf="dvorak.sh"
 
 alias red="redshift -O 3333"
 alias black="redshift -x"
