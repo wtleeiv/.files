@@ -36,8 +36,7 @@
 (add-hook 'xah-fly-command-mode-activate-hook
 	  (lambda ()
 	    (define-key xah-fly-key-map (kbd ";") 'xah-comment-dwim)
-(define-key xah-fly-key-map (kbd "'") 'xah-reformat-lines)
-	    ))
+	    (define-key xah-fly-key-map (kbd "'") 'xah-reformat-lines)))
 
 (add-hook 'shell-mode-hook 'xah-fly-insert-mode-activate)
 (add-hook 'eshell-mode-hook 'xah-fly-insert-mode-activate)

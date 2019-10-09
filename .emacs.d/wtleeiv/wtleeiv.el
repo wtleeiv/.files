@@ -21,7 +21,6 @@
     flycheck-joker
     tide
     which-key
-    xah-fly-keys
     noctilux-theme
     kaolin-themes))
 

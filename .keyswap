@@ -1,10 +1,12 @@
 remove Lock = Caps_Lock
-remove Control = Control_L
-keysym Control_L = Caps_Lock
-keysym Caps_Lock = Home
-add Lock = Caps_Lock
+remove Mod4 = Hyper_L
+remove Mod1 = Alt_R
+remove Control = Control_R
 
-remove  Mod1 =  Alt_L
-keysym  Alt_L  =  Control_L
+keysym Caps_Lock = Hyper_L
+keysym Alt_R = Control_R
+keysym Control_R = Alt_R
 
-add Control = Control_L
+add Mod3 = Hyper_L
+add Control = Control_R
+add Mod1 = Alt_R

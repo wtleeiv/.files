@@ -1,4 +1,4 @@
 #!/bin/sh
 
-killall xcape
 setxkbmap us
+echo "qwerty" > $HOME/.keyboard_layout

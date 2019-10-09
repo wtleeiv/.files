@@ -23,6 +23,12 @@
 (setq ido-enable-flex-matching t
       ido-everywhere t)
 (ido-mode 1)
+(require 'ido-completing-read+)
+(ido-ubiquitous-mode 1)
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 (require 'which-key)
 (which-key-mode)

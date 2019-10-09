@@ -29,7 +29,7 @@
  '(foreground-color "#cccccc")
  '(package-selected-packages
    (quote
-    (clj-refactor zenburn-theme xah-fly-keys which-key tide smex slime-company realgud rainbow-delimiters pdf-tools paredit ob-ipython noctilux-theme neotree magit lispy latex-extra kaolin-themes forth-mode flycheck-joker expand-region exec-path-from-shell esup doom-modeline company-quickhelp company-auctex company-anaconda clojure-mode-extra-font-locking cider 4clojure))))
+    (ergoemacs-mode ido-completing-read+ clj-refactor zenburn-theme xah-fly-keys which-key tide smex slime-company realgud rainbow-delimiters pdf-tools paredit ob-ipython noctilux-theme neotree magit lispy latex-extra kaolin-themes forth-mode flycheck-joker expand-region exec-path-from-shell esup doom-modeline company-quickhelp company-auctex company-anaconda clojure-mode-extra-font-locking cider 4clojure))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
