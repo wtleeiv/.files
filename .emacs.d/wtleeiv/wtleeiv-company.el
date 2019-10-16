@@ -13,6 +13,7 @@
 
 (add-hook 'shell-mode-hook #'wtleeiv-disable-completion)
 (add-hook 'eshell-mode-hook #'wtleeiv-disable-completion)
+(add-hook 'lisp-interaction-mode-hook #'wtleeiv-disable-completion)
 
 (push 'slime-company slime-contribs)
 
