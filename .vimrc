@@ -1,7 +1,17 @@
-syntax enable
-filetype indent on
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
 
-map! <Home> <Esc>
+nnoremap , :
+nnoremap : ,
+let mapleader = " "
+nnoremap j gj
+nnoremap k gk
+nnoremap Y y$
+vmap > >gv
+vmap < <gv
+
+map <leader>t ,NERDTreeToggle<CR>
 
 set number
 set showcmd
@@ -13,12 +23,7 @@ set incsearch
 set hlsearch
 set ignorecase
 set smartcase
-
-nnoremap j gj
-nnoremap k gk
-nnoremap B ^
-nnoremap E $
-
+set noeb vb t_vb=
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
