@@ -3,7 +3,7 @@ syntax on
 filetype plugin indent on
 set nocompatible
 set nomodeline
-" kEY REMAPPINGS
+" KEY REMAPPINGS
 nnoremap , :
 nnoremap : ,
 let mapleader = " "
@@ -30,7 +30,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 augroup TabLengths
-    autocmd FileType lisp,clojure setlocal tabstop = softtabstop = shiftwidth = 2
+    autocmd FileType lisp,clojure setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 set expandtab
 " SEARCH
@@ -39,16 +39,15 @@ set incsearch
 set showmatch
 set smartcase
 set ignorecase
-
+" MISC
 set encoding=utf-8
-
 set scrolloff=3
 set wildmenu
 set wildmode=list:longest
 set autoindent
 set showmode
 set showcmd
-set visualbell
+set noeb vb t_vb=
 set cursorline
 set lazyredraw
 set ttyfast
