@@ -3,6 +3,16 @@ syntax on
 filetype plugin indent on
 set nocompatible
 set nomodeline
+" COLORS
+set background=dark
+colorscheme palenight
+let g:airline_theme = "palenight"
+if (has("nvim"))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+if (has("termguicolors"))
+  set termguicolors
+endif
 " KEY REMAPPINGS
 nnoremap , :
 nnoremap : ,
@@ -25,6 +35,8 @@ vnoremap <tab> %
 nnoremap <leader><space> :noh<cr>
 nnoremap <leader>t :NERDTreeToggle<CR>
 autocmd VimEnter * RainbowParentheses
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tablne#formatter = 'unique_tail_improved'
 " TABS
 set tabstop=4
 set shiftwidth=4
