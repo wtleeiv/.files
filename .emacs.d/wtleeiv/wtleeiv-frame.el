@@ -4,15 +4,13 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 
-;; (global-hl-line-mode t)
+;;(toggle-frame-maximized)
+(when (eq window-system 'x)
+  (add-to-list 'default-frame-alist
+	       '(font . "Cousine-11:antialias=subpixel")))
 
-(toggle-frame-maximized)
-
-(add-to-list 'default-frame-alist
-             '(font . "Noto Mono-10:antialias=subpixel"))
-
-(require 'kaolin-themes)
-(load-theme 'kaolin-eclipse t)
+(require 'planet-theme)
+(load-theme 'planet t)
 
 (defun wtleeiv-noctilux-theme ()
   "not run, but here if you need it"

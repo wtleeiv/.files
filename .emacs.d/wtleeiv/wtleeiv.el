@@ -8,20 +8,20 @@
     ;; counsel
     paredit
     company-quickhelp
-    slime-company
+    ;;slime-company
     ob-ipython
-    company-anaconda
+    ;;company-anaconda
     expand-region
-    realgud
-    forth-mode
+    ;;realgud
+    ;;forth-mode
     neotree
     smex
-    clojure-mode
-    cider
-    flycheck-joker
-    tide
+    ido-completing-read+
+    ;;clojure-mode
+    ;;cider
+    ;;flycheck-joker
+    ;;tide
     which-key
-    noctilux-theme
     kaolin-themes))
 
 (defvar wtleeiv-latex-packages
@@ -38,13 +38,13 @@
 (require 'wtleeiv-general)
 ;; (require 'wtleeiv-counsel)
 (require 'wtleeiv-paste)
-(require 'wtleeiv-lisp)
-(require 'wtleeiv-clojure)
-(require 'wtleeiv-paredit)
+;;(require 'wtleeiv-lisp)
+;;(require 'wtleeiv-clojure)
+;;(require 'wtleeiv-paredit)
 (require 'wtleeiv-company)
-(require 'wtleeiv-python)
+;;(require 'wtleeiv-python)
 ;; (require 'wtleeiv-typescript)
-(require 'wtleeiv-forth)
+;;(require 'wtleeiv-forth)
 ;; (require 'wtleeiv-factor)
 (require 'wtleeiv-org)
 (when (eq window-system 'x)
