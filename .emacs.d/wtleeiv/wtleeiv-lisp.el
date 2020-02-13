@@ -25,6 +25,8 @@
       lisp-loop-indent-forms-like-keywords t
       lisp-lambda-list-keyword-parameter-alignment t)
 
+(push 'slime-company slime-contribs)
+
 (defun slime-repl-return-at-end ()
   (interactive)
   (if (<= (point-max) (point))

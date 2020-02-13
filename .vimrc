@@ -3,16 +3,10 @@ syntax on
 filetype plugin indent on
 set nocompatible
 set nomodeline
-" COLORS
+" COLORSCHEME
 set background=dark
 colorscheme palenight
 let g:airline_theme = "palenight"
-if (has("nvim"))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-if (has("termguicolors"))
-  set termguicolors
-endif
 " KEY REMAPPINGS
 nnoremap , :
 nnoremap : ,
@@ -87,4 +81,3 @@ set gdefault
 set wrap
 set textwidth=79
 set formatoptions=qrn1
-"set colorcolumn=85
