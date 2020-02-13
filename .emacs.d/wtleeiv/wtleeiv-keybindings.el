@@ -28,19 +28,31 @@
 (require 'neotree)
 (global-set-key (kbd "C-c d") 'neotree-toggle)
 
-(setq xah-fly-use-control-key nil)
-(require 'xah-fly-keys)
-(xah-fly-keys-set-layout "programer-dvorak")
-(xah-fly-keys 1)
-(define-key xah-fly-key-map (kbd "<home>") 'xah-fly-mode-toggle)
-(add-hook 'xah-fly-command-mode-activate-hook
-	  (lambda ()
-	    (define-key xah-fly-key-map (kbd ";") 'xah-comment-dwim)
-	    (define-key xah-fly-key-map (kbd "'") 'xah-reformat-lines)))
+(require 'evil)
+(evil-mode 1)
 
-(add-hook 'shell-mode-hook 'xah-fly-insert-mode-activate)
-(add-hook 'eshell-mode-hook 'xah-fly-insert-mode-activate)
-(add-hook 'magit-mode-hook 'xah-fly-insert-mode-activate)
-(add-hook 'dired-mode-hook 'xah-fly-insert-mode-activate)
+(evil-global-set-key 'normal (kbd ",") 'evil-ex)
+(evil-global-set-key 'normal (kbd ":") 'evil-repeat-find-char-reverse)
+
+(when (eq system-type 'darwin)
+    (setq mac-control-modifier 'command
+	mac-command-modifier 'control))
+
+(defun use-fly-keys ()
+  (setq xah-fly-use-control-key nil)
+  (require 'xah-fly-keys)
+  (xah-fly-keys-set-layout "programer-dvorak")
+  (xah-fly-keys 1)
+  (define-key xah-fly-key-map (kbd "<home>") 'xah-fly-mode-toggle)
+  (add-hook 'xah-fly-command-mode-activate-hook
+      (lambda ()
+        (define-key xah-fly-key-map (kbd ";") 'xah-comment-dwim)
+        (define-key xah-fly-key-map (kbd "'") 'xah-reformat-lines)))
+
+  (add-hook 'shell-mode-hook 'xah-fly-insert-mode-activate)
+  (add-hook 'eshell-mode-hook 'xah-fly-insert-mode-activate)
+  (add-hook 'magit-mode-hook 'xah-fly-insert-mode-activate)
+  (add-hook 'dired-mode-hook 'xah-fly-insert-mode-activate)
+)
 
 (provide 'wtleeiv-keybindings)

@@ -9,7 +9,7 @@
 (toggle-frame-maximized)
 
 (add-to-list 'default-frame-alist
-             '(font . "Noto Mono-10:antialias=subpixel"))
+             '(font . "Dank Mono-13:antialias=subpixel"))
 
 (require 'kaolin-themes)
 (load-theme 'kaolin-eclipse t)
@@ -25,8 +25,8 @@
 		      :weight 'bold
 		      :underline t))
 
-(set-frame-parameter (selected-frame) 'alpha '(77 . 50))
-(add-to-list 'default-frame-alist '(alpha . (77 . 50)))
+;;(set-frame-parameter (selected-frame) 'alpha '(77 . 50))
+;;(add-to-list 'default-frame-alist '(alpha . (77 . 50)))
 
 (defun toggle-transparency ()
   (interactive)
