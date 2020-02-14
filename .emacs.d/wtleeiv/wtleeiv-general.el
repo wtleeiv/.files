@@ -15,6 +15,12 @@
       sentence-end-double-space nil
       uniquify-buffer-name-style 'post-forward)
 
+(require 'evil)
+(evil-mode 1)
+
+(evil-global-set-key 'normal (kbd ",") 'evil-ex)
+(evil-global-set-key 'normal (kbd ":") 'evil-repeat-find-char-reverse)
+
 (require 'paren)
 (show-paren-mode t)
 (setq show-paren-delay 0)

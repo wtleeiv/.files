@@ -17,6 +17,8 @@
     neotree
     smex
     ido-completing-read+
+    evil
+    planet-theme
     ;;clojure-mode
     ;;cider
     ;;flycheck-joker

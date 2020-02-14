@@ -9,8 +9,7 @@
   (add-to-list 'default-frame-alist
 	       '(font . "Cousine-11:antialias=subpixel")))
 
-<<<<<<< HEAD
-(when (eq window-system 'darwin)
+(when (eq window-system 'ns)
   (toggle-frame-maximized)
   (add-to-list 'default-frame-alist
                '(font . "Dank Mono-13:antialias=subpixel")))

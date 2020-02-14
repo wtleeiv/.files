@@ -28,17 +28,8 @@
 (require 'neotree)
 (global-set-key (kbd "C-c d") 'neotree-toggle)
 
-(require 'evil)
-(evil-mode 1)
-
-(evil-global-set-key 'normal (kbd ",") 'evil-ex)
-(evil-global-set-key 'normal (kbd ":") 'evil-repeat-find-char-reverse)
-
-(when (eq system-type 'darwin)
-  (setq mac-right-control-modifier 'command
-        mac-command-modifier 'control
-        mac-right-control-modifier 'option
-        mac-control-modifier 'command))
+;; (when (eq window-system 'ns) ; osx
+;;   (setq mac-command-modifier 'control))
 
 (defun use-fly-keys ()
   "don't use this"
