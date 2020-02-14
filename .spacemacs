@@ -58,9 +58,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      ;; tramp
-                                      ;; helm-tramp
-                                      ;; tramp-term
+                                      exec-path-from-shell
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -326,8 +324,13 @@ you should place your code here."
   (when (eq window-system 'ns) ; swap control and command on mac
     (setq ns-command-modifier 'control
           ns-control-modifier 'super))
-  ;; (require 'tramp)
-  ;; (setq tramp-verbose 10)
+  (require 'exec-path-from-shell)
+  (exec-path-from-shell-initialize)
+  (require 'tramp)
+  (setq tramp-verbose 10)
+  ;; add password regex for mondev: appended \\|PIV before \\)\\).*
+  ;; TODO make password prompt recognise all NASA systems
+  (setq tramp-password-prompt-regexp "^.*\\(\\(?:adgangskode\\|contrase\\(?:\\(?:ny\\|ñ\\)a\\)\\|geslo\\|h\\(?:\\(?:asł\\|esl\\)o\\)\\|iphasiwedi\\|jelszó\\|l\\(?:ozinka\\|ösenord\\)\\|m\\(?:ot de passe\\|ật khẩu\\)\\|pa\\(?:rola\\|s\\(?:ahitza\\|s\\(?: phrase\\|code\\|ord\\|phrase\\|wor[dt]\\)\\|vorto\\)\\)\\|s\\(?:alasana\\|enha\\|laptažodis\\)\\|wachtwoord\\|лозинка\\|пароль\\|ססמה\\|كلمة السر\\|गुप्तशब्द\\|शब्दकूट\\|গুপ্তশব্দ\\|পাসওয়ার্ড\\|ਪਾਸਵਰਡ\\|પાસવર્ડ\\|ପ୍ରବେଶ ସଙ୍କେତ\\|கடவுச்சொல்\\|సంకేతపదము\\|ಗುಪ್ತಪದ\\|അടയാളവാക്ക്\\|රහස්පදය\\|ពាក្យសម្ងាត់\\|パスワード\\|密[码碼]\\|암호\\|PIV\\)\\).*: ? *")
   ;; (add-to-list 'tramp-connection-properties
   ;;              (list (regexp-quote "sfe")
   ;;               "remote shell" "/bin/bash"))
