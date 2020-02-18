@@ -49,7 +49,7 @@ values."
             shell-default-shell 'eshell
             shell-default-height 30
             shell-default-position 'bottom)
-     ;; markdown
+     markdown
      ;; spell-checking
      ;; version-control
      )
@@ -325,6 +325,10 @@ you should place your code here."
     (setq ns-command-modifier 'control
           ns-control-modifier 'super))
   (require 'exec-path-from-shell)
+  (add-to-list 'exec-path-from-shell-variables "PERL5LIB")
+  (add-to-list 'exec-path-from-shell-variables "PERL_LOCAL_LIB_ROOT")
+  (add-to-list 'exec-path-from-shell-variables "PERL_MB_OPT")
+  (add-to-list 'exec-path-from-shell-variables "PERL_MM_OPT")
   (exec-path-from-shell-initialize)
   (require 'tramp)
   (setq tramp-verbose 10)
