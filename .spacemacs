@@ -37,17 +37,21 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
+     helpful
      syntax-checking
      auto-completion
      better-defaults
      themes-megapack
      evil-commentary
-     helpful
-     vinegar
+     (vinegar :variables
+              vinegar-dired-hide-details nil)
      git
      org
+     c-c++
      perl5
+     clojure
      emacs-lisp
+     common-lisp
      shell-scripts
      (shell :variables
             shell-default-shell 'eshell
@@ -57,15 +61,13 @@ values."
             shell-default-position 'bottom)
      markdown
      games
-     selectric
-     ;; spell-checking
-     ;; version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      planet-theme
                                       exec-path-from-shell
                                       realgud
                                       )
@@ -140,12 +142,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(
-                         planet
-                         doom-moonlight
-                         hemisu-dark
-                         )
-
+   dotspacemacs-themes '(planet)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -330,6 +327,11 @@ you should place your code here."
   (spacemacs/enable-transparency)
   (evil-global-set-key 'normal (kbd ":") 'evil-repeat-find-char-reverse)
   (setq vc-follow-symlinks t) ; don't ask when fellowing symlinks under vc
+  (setq inferior-lisp-program "sbcl")
+  (require 'dired)
+  (setq-default dired-listing-switches "-alh")
+  (require 're-builder)
+  (setq reb-re-syntax 'string)
   (when (eq window-system 'ns) ; only on mac
     (setq ns-command-modifier 'control
           ns-control-modifier 'super)
@@ -342,10 +344,10 @@ you should place your code here."
     (add-to-list 'exec-path-from-shell-variables "PERL_MM_OPT")
     (exec-path-from-shell-initialize)
     (require 'tramp)
-    ;; (setq tramp-verbose 10)
+    (setq tramp-verbose 10)
     ;; add remote tramp path to eshell (allow running all available remote commands)
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-    ;; add password regex for mondev: appended \\|PIV before \\)\\).*
+    ;; add password regex for mondev: appended \\|PIV and \\|tokencode before \\)\\).*
     ;; TODO make password prompt recognise all NASA systems
     (setq tramp-password-prompt-regexp "^.*\\(\\(?:adgangskode\\|contrase\\(?:\\(?:ny\\|ñ\\)a\\)\\|geslo\\|h\\(?:\\(?:asł\\|esl\\)o\\)\\|iphasiwedi\\|jelszó\\|l\\(?:ozinka\\|ösenord\\)\\|m\\(?:ot de passe\\|ật khẩu\\)\\|pa\\(?:rola\\|s\\(?:ahitza\\|s\\(?: phrase\\|code\\|ord\\|phrase\\|wor[dt]\\)\\|vorto\\)\\)\\|s\\(?:alasana\\|enha\\|laptažodis\\)\\|wachtwoord\\|лозинка\\|пароль\\|ססמה\\|كلمة السر\\|गुप्तशब्द\\|शब्दकूट\\|গুপ্তশব্দ\\|পাসওয়ার্ড\\|ਪਾਸਵਰਡ\\|પાસવર્ડ\\|ପ୍ରବେଶ ସଙ୍କେତ\\|கடவுச்சொல்\\|సంకేతపదము\\|ಗುಪ್ತಪದ\\|അടയാളവാക്ക്\\|රහස්පදය\\|ពាក្យសម្ងាត់\\|パスワード\\|密[码碼]\\|암호\\|PIV\\|tokencode\\)\\).*: ? *")
     )
