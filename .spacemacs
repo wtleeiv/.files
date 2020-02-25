@@ -41,7 +41,6 @@ values."
      syntax-checking
      auto-completion
      better-defaults
-     themes-megapack
      evil-commentary
      (vinegar :variables
               vinegar-dired-hide-details nil)
