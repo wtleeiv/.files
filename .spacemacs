@@ -57,7 +57,7 @@ values."
      themes-megapack
      (shell :variables
       shell-default-shell 'eshell
-      shell-enable-smart-eshell t
+      shell-enable-smart-eshell nil
       shell-default-height 100
       shell-default-full-span nil
       shell-default-position 'bottom)
