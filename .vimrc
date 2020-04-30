@@ -8,8 +8,6 @@ set background=dark
 colorscheme palenight
 let g:airline_theme = "palenight"
 " KEY REMAPPINGS
-nnoremap , :
-nnoremap : ,
 let mapleader = " "
 " move by visual line
 nnoremap j gj

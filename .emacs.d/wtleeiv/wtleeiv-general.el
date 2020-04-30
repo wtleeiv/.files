@@ -42,13 +42,12 @@
 (blink-cursor-mode 0)
 (column-number-mode 1)
 (global-hl-line-mode t)
-;; (global-display-line-numbers-mode 1)
 
 ;; syntax highlighting
 (global-font-lock-mode t)
 ;; update buffer when file changes on disk
-(global-auto-revert-mode t)
-
+(global-auto-revert-mode t)(blink-cursor-mode 0)
+(blink-cursor-mode 0)
 (setq-default dired-listing-switches "-alh")
 (setq-default buffer-file-coding-system 'utf-8-unix)
 
