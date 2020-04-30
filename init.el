@@ -83,6 +83,12 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-c i") 'imenu)
+(global-set-key (kbd "<f5>") 'split-window-right)
+(global-set-key (kbd "<f6>") 'split-window-below)
+(global-set-key (kbd "<f7>") 'delete-other-windows)
+(global-set-key (kbd "<f8>") 'previous-buffer)
+(global-set-key (kbd "<f9>") 'next-buffer)
+
 ;;; GUI
 
 (when (window-system)
