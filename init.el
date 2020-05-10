@@ -57,9 +57,11 @@
 	       confirm-kill-processes nil
 	       initial-scratch-message nil
 	       sentence-end-double-space nil
-	       dired-listing-switches "-alh"
+               dired-listing-switches "-alh"
 	       buffer-file-coding-system 'utf-8-unix
-	       uniquify-buffer-name-style 'post-forward)
+	       uniquify-buffer-name-style 'post-forward
+               ediff-split-window-function 'split-window-horizontally
+               ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (require 'paren)
 (show-paren-mode t)
@@ -67,6 +69,8 @@
 
 (blink-cursor-mode 0)
 ;; (global-hl-line-mode t)
+
+(delete-selection-mode t)
 
 ;; syntax highlighting
 (global-font-lock-mode t)
@@ -83,9 +87,13 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "C-c i") 'imenu)
-(global-set-key (kbd "<f5>") 'split-window-right)
-(global-set-key (kbd "<f6>") 'split-window-below)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+
+(global-set-key (kbd "<f5>") (lambda () (interactive) (split-window-right) (other-window 1)))
+(global-set-key (kbd "<f6>") (lambda () (interactive) (split-window-below) (other-window 1)))
 (global-set-key (kbd "<f7>") 'delete-other-windows)
+(global-set-key (kbd "C-<f7>") 'delete-window)
+
 (global-set-key (kbd "<f8>") 'previous-buffer)
 (global-set-key (kbd "<f9>") 'next-buffer)
 
@@ -139,11 +147,19 @@
 (eval-when-compile
   (require 'use-package))
 
+(use-package diminish
+  :demand t)
+
 ;;;; Theme
 
 (when (window-system)
   (use-package modus-vivendi-theme
     :demand t
+    :init
+    (setq modus-vivendi-theme-slanted-constructs t
+          modus-vivendi-theme-subtle-diffs t
+          modus-vivendi-theme-distinct-org-blocks t
+          modus-vivendi-theme-rainbow-headings t)
     :config
     (load-theme 'modus-vivendi t)))
 
@@ -151,6 +167,7 @@
 
 (use-package which-key
   :demand t
+  :diminish
   :config
   (setq which-key-idle-delay 0.01)
   (which-key-mode))
@@ -237,6 +254,11 @@
   (setq  avy-timeout-seconds 0.2
          avy-keys '(?u ?h ?e ?t ?o ?n ?a ?s ?i ?d)))
 
+(use-package ace-link
+  :demand t
+  :config
+  (ace-link-setup-default))
+
 (use-package perspective
   :demand t
   :config
@@ -266,6 +288,20 @@
   :bind
   ("M-g ." . dumb-jump-go)
   ("M-g ," . dumb-jump-back))
+
+(with-eval-after-load 'shr ; lazy load is very important, it can save you a lot of boot up time
+  (require 'shrface)
+  (shrface-basic) ; enable shrfaces, must be called before loading eww/dash-docs/nov.el
+  (shrface-trial) ; enable shrface experimental face(s), must be called before loading eww/dash-docs/nov.el
+  (setq shrface-href-versatile t) ; enable versatile URL faces support
+                                        ; (http/https/ftp/file/mailto/other), if
+                                        ; `shrface-href-versatile' is nil, default
+                                        ; face `shrface-href-face' would be used.
+  (setq shrface-toggle-bullets t) ; Set t if you do not like headline bullets
+
+  ;; eww support
+  (with-eval-after-load 'eww
+    (add-hook 'eww-after-render-hook 'shrface-mode)))
 
 (use-package smartparens
   :hook ((emacs-lisp-mode) . turn-on-smartparens-strict-mode)
@@ -400,6 +436,45 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
   (interactive)
   (add-to-list 'load-path "~/.emacs.d/me/")
   (load "sepia"))
+
+;;;; Org
+
+(use-package org
+  :bind
+  ("C-c a" . org-agenda)
+  ("C-c c" . org-capture)
+  ("C-c l" . org-store-link)
+  :config
+  (require 'org)
+  (require 'org-habit)
+  (require 'org-agenda)
+  (setq org-directory "~/org/"
+        org-default-notes-file (concat org-directory "notes.org")
+        org-agenda-files (list (concat org-directory "habits.org")
+			  org-default-notes-file)
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-confirm-babel-evaluate nil
+        org-src-preserve-indentation t
+        org-refile-targets '((org-agenda-files . (:level . 1)))
+        org-agenda-custom-commands '(("n" "Agenda and TODOs"
+          			    ((agenda "")
+          			     (tags-todo "-habits"))))
+        org-capture-templates `(("n" "Note" entry (file org-default-notes-file)
+          		         "* %?")
+          		        ("t" "Task" entry (file+headline org-default-notes-file "Tasks")
+          		         "** TODO %?")
+                                ("l" "Learnal" entry (file+olp+datetree ,(concat org-directory "learnal.org"))
+                                 "* %?" :tree-type week))
+        )
+
+  ;; (org-babel-do-load-languages
+  ;;  'org-babel-load-languages
+  ;;  '((emacs-lisp . t)n
+  ;;    (ipython . t)
+  ;;    (lisp . t)))
+  )
+
 
 ;;; Defuns
 
