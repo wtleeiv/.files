@@ -5,8 +5,8 @@ set nocompatible
 set nomodeline
 " COLORSCHEME
 set background=dark
-colorscheme palenight
-let g:airline_theme = "palenight"
+"colorscheme palenight
+"let g:airline_theme = "palenight"
 " KEY REMAPPINGS
 let mapleader = " "
 " move by visual line
@@ -72,10 +72,10 @@ set hidden
 set undofile
 set backspace=indent,eol,start
 " always show modeline
-set laststatus=2
+"set laststatus=2
 " global search&replace by default
-set gdefault
+"set gdefault
 " LINE WRAPPING
-set wrap
-set textwidth=79
-set formatoptions=qrn1
+"set wrap
+"set textwidth=79
+"set formatoptions=qrn1
