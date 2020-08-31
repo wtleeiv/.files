@@ -76,7 +76,7 @@
          '(80 . 70) '(100 . 100)))))
 
 (map! :map doom-leader-toggle-map
-      :desc "Transparency" "t" #'toggle-transparency)
+      :desc "Transparency" "T" #'toggle-transparency)
 
 ;; (setq modus-vivendi-theme-slanted-constructs t
 ;;       modus-vivendi-theme-subtle-diffs t
