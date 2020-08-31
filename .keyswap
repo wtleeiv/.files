@@ -1,12 +1,24 @@
 remove Lock = Caps_Lock
-remove Mod4 = Hyper_L
-remove Mod1 = Alt_R
-remove Control = Control_R
+clear control
+clear mod1
+clear mod4
 
-keysym Caps_Lock = Hyper_L
+keysym Caps_Lock = Escape
+keysym Escape = Caps_Lock
+
+keysym Alt_L = Control_L
 keysym Alt_R = Control_R
+
+keysym Control_L = Alt_L
 keysym Control_R = Alt_R
 
-add Mod3 = Hyper_L
-add Control = Control_R
+keysym Super_L = Super_L
+keysym Menu = Super_R
+
+add Lock = Caps_Lock
+add control = Control_L
+add control = Control_R
+add Mod1 = Alt_L
 add Mod1 = Alt_R
+add mod4 = Super_L
+add mod4 = Super_R
