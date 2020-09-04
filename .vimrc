@@ -56,7 +56,7 @@ set smartcase
 set ignorecase
 " MISC
 set encoding=utf-8
-set scrolloff=3
+"set scrolloff=3
 set wildmenu
 set wildmode=list:longest
 set autoindent
@@ -67,7 +67,7 @@ set cursorline
 set lazyredraw
 set ttyfast
 set ruler
-set relativenumber
+"set relativenumber
 set hidden
 set undofile
 set backspace=indent,eol,start
