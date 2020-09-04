@@ -9,7 +9,7 @@
 (setq user-full-name "Tyler Lee"
       user-mail-address "wtleeiv@gmail.com")
 
-;; Doom exposes five (optional) variables for controlling fontfonts in Doom. Here
+;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
 ;; + `doom-font'
@@ -26,8 +26,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-moonlight)
-;; doom-horizon-comment-bg t
+(setq doom-theme 'doom-one)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
