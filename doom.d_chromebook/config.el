@@ -81,6 +81,9 @@
 (after! org-noter
   (setq org-noter-always-create-frame nil))
 
+(use-package! lispy ; lispyville will run in any mode lispy does
+  :hook ((cider-repl-mode . lispy-mode)))
+
 ;; (after! anki-editor
 ;;   (setq anki-editor-create-decks t))
 

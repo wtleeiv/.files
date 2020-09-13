@@ -59,6 +59,10 @@
 
 (setq confirm-kill-emacs nil)
 
+(after! evil ; move to newly-split windows
+  (setq evil-split-window-below t
+        evil-vsplit-window-right t))
+
 (after! tramp
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
@@ -68,6 +72,9 @@
 
 (after! writeroom-mode
   (remove-hook 'writeroom-global-effects 'writeroom-set-alpha))
+
+(use-package! lispy ; lispyville will run in any mode lispy does
+  :hook ((cider-repl-mode . lispy-mode)))
 
 (when (eq window-system 'ns) ; only on mac
   (setq ns-command-modifier 'control
@@ -91,6 +98,3 @@
 
 (map! :map doom-leader-toggle-map
       :desc "Transparency" "T" #'toggle-transparency)
-
-(use-package! lispy ; lispyville will run in any mode lispy does
-  :hook ((cider-repl-mode . lispy-mode)))
