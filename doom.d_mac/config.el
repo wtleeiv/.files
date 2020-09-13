@@ -23,13 +23,13 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 (setq doom-font (font-spec :family "Iosevka"
                            :size 13
-                           :slant 'italic
+                           ;; :slant 'italic
                            :weight 'light))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-horizon)
+(setq doom-theme 'doom-moonlight)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -59,6 +59,10 @@
 
 (setq confirm-kill-emacs nil)
 
+(after! evil ; move to newly-split windows
+  (setq evil-split-window-below t
+        evil-vsplit-window-right t))
+
 (after! tramp
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
@@ -69,7 +73,10 @@
 (after! writeroom-mode
   (remove-hook 'writeroom-global-effects 'writeroom-set-alpha))
 
-(when (eq window-system 'ns)            ; only on mac
+(use-package! lispy ; lispyville will run in any mode lispy does
+  :hook ((cider-repl-mode . lispy-mode)))
+
+(when (eq window-system 'ns) ; only on mac
   (setq ns-command-modifier 'control
         ns-control-modifier 'meta
         ns-option-modifier 'super))
