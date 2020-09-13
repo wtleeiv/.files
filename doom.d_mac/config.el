@@ -69,7 +69,7 @@
 (after! writeroom-mode
   (remove-hook 'writeroom-global-effects 'writeroom-set-alpha))
 
-(when (eq window-system 'ns)            ; only on mac
+(when (eq window-system 'ns) ; only on mac
   (setq ns-command-modifier 'control
         ns-control-modifier 'meta
         ns-option-modifier 'super))
@@ -91,3 +91,6 @@
 
 (map! :map doom-leader-toggle-map
       :desc "Transparency" "T" #'toggle-transparency)
+
+(use-package! lispy ; lispyville will run in any mode lispy does
+  :hook ((cider-repl-mode . lispy-mode)))
