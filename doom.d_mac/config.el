@@ -71,7 +71,8 @@
         which-key-idle-secondary-delay 0.01))
 
 (after! writeroom-mode
-  (remove-hook 'writeroom-global-effects 'writeroom-set-alpha))
+  (remove-hook 'writeroom-global-effects 'writeroom-set-alpha)
+  (remove-hook 'writeroom-mode-hook '+zen-enable-mixed-pitch-mode-h))
 
 (use-package! lispy ; lispyville will run in any mode lispy does
   :hook ((cider-repl-mode . lispy-mode)))
