@@ -29,7 +29,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-miramare)
+(setq doom-theme 'doom-zenburn)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -72,7 +72,9 @@
 
 (after! writeroom-mode
   (remove-hook 'writeroom-global-effects 'writeroom-set-alpha)
-  (remove-hook 'writeroom-mode-hook '+zen-enable-mixed-pitch-mode-h))
+  (remove-hook 'writeroom-mode-hook '+zen-enable-mixed-pitch-mode-h)
+  (remove-hook 'writeroom-mode-hook '+zen-enable-text-scaling-mode-h))
+
 
 (use-package! lispy ; lispyville will run in any mode lispy does
   :hook ((cider-repl-mode . lispy-mode)))
