@@ -68,7 +68,9 @@
         which-key-idle-secondary-delay 0.01))
 
 (after! writeroom-mode
-  (remove-hook 'writeroom-global-effects 'writeroom-set-alpha))
+  (remove-hook 'writeroom-global-effects 'writeroom-set-alpha)
+  (remove-hook 'writeroom-mode-hook '+zen-enable-mixed-pitch-mode-h)
+  (remove-hook 'writeroom-mode-hook '+zen-enable-text-scaling-mode-h))
 
 (after! pdf-view
   (map! :map pdf-view-mode-map
