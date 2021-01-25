@@ -71,6 +71,7 @@
         which-key-idle-secondary-delay 0.2))
 
 (after! writeroom-mode
+  (setq writeroom-width 82)
   (remove-hook 'writeroom-global-effects 'writeroom-set-alpha)
   (remove-hook 'writeroom-mode-hook '+zen-enable-mixed-pitch-mode-h)
   (remove-hook 'writeroom-mode-hook '+zen-enable-text-scaling-mode-h))
