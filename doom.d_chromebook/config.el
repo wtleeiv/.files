@@ -61,6 +61,7 @@
   (setq evil-split-window-below t
         evil-vsplit-window-right t)
   ;; prefer emacs bindings in insert mode
+  ;; OR use C-z to toggle emacs state
   (setq evil-disable-insert-state-bindings t))
 
 (after! tramp
@@ -82,6 +83,7 @@
 
 (after! org
   (setq org-babel-clojure-backend 'cider)
+  ;; add latex templates (they don't have a shortcut by default)
   (add-to-list 'org-structure-template-alist '("d" . "definition"))
   (add-to-list 'org-structure-template-alist '("t" . "theorem")))
 
