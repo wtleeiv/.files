@@ -56,9 +56,12 @@
 
 (setq confirm-kill-emacs nil)
 
-(after! evil ; move to newly-split windows
+(after! evil
+  ;; move to newly-split windows
   (setq evil-split-window-below t
-        evil-vsplit-window-right t))
+        evil-vsplit-window-right t)
+  ;; prefer emacs bindings in insert mode
+  (setq evil-disable-insert-state-bindings t))
 
 (after! tramp
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
@@ -78,7 +81,9 @@
         :n "<right>" #'pdf-view-scroll-up-or-next-page))
 
 (after! org
-  (setq org-babel-clojure-backend 'cider))
+  (setq org-babel-clojure-backend 'cider)
+  (add-to-list 'org-structure-template-alist '("d" . "definition"))
+  (add-to-list 'org-structure-template-alist '("t" . "theorem")))
 
 (after! org-noter
   (setq org-noter-always-create-frame nil))
