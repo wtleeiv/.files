@@ -29,7 +29,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-zenburn)
+(setq doom-theme 'doom-sourcerer)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -82,8 +82,9 @@
 
 (when (eq window-system 'ns) ; only on mac
   (setq ns-command-modifier 'control
-        ns-control-modifier 'meta
-        ns-option-modifier 'super))
+        ;; ns-control-modifier 'meta
+        ;; ns-option-modifier 'super
+        ))
 
 (defun toggle-transparency ()
   (interactive)
