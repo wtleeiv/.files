@@ -162,7 +162,7 @@
 (defun my/edit-config ()
   (interactive)
   (find-file user-init-file))
-(global-set-key (kbd "C-c e") 'my/edit-config)
+(global-set-key (kbd "C-c c") 'my/edit-config)
 
 (defun my/tldr ()
   "TLDRs a query or region if any."
