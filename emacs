@@ -7,18 +7,26 @@
 ;;; Graphical setup
 
 (when window-system
-  (load-theme 'wombat t)
+  (load-theme 'deeper-blue t)
+  ;; (load-theme 'tango-dark t)
+  (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
 
   (set-frame-parameter (selected-frame) 'alpha '(77 . 55))
   (add-to-list 'default-frame-alist '(alpha . (77 . 55)))
 
   ;; Maximize window if it isn't already
-  (unless (eq 'maximized (frame-parameter (selected-frame) 'fullscreen))
-    (toggle-frame-maximized))
+  (when (eq 'ns window-system)
+    (unless (eq 'maximized (frame-parameter (selected-frame) 'fullscreen))
+      (toggle-frame-maximized)))
 
-  (set-face-attribute 'default nil :family "Fira Code" :height 130)
-  (set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 1.0)
-  (set-face-attribute 'variable-pitch nil :family "ETBookOT" :height 1.2)
+  (when (eq 'ns window-system)
+    (set-face-attribute 'default nil :family "Fira Code" :height 130)
+    (set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 1.0)
+    (set-face-attribute 'fixed-pitch nil :family "ETBookOT" :height 1.2))
+  (when (eq 'x window-system)
+    (set-face-attribute 'default nil :family "Ubuntu Mono" :height 120)
+    (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono" :height 1.0)
+    (set-face-attribute 'variable-pitch nil :family "ETBookOT" :height 1.1))
 
   (defun my/toggle-transparency ()
     (interactive)
