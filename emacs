@@ -136,6 +136,15 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
+;; comment-dwim :: M-;
+(global-set-key (kbd "M-c") 'capitalize-dwim)
+(global-set-key (kbd "M-l") 'downcase-dwim)
+(global-set-key (kbd "M-u") 'upcase-dwim)
+;; Can be replaced
+;; C-x C-l :: downcase-region
+;; C-x C-u :: upcase-region
+
+
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
@@ -183,3 +192,11 @@
 		      windmove-left windmove-right
 		      recenter-top-bottom other-window))
 	(advice-add my/command :after 'my/pulse-point-line))
+
+;;; Desktop
+
+(tab-bar-mode 1)
+(desktop-save-mode 1)
+;; desktop-remove
+;; desktop-clear
+;; (setq desktop-restore-eager)
