@@ -26,7 +26,7 @@
   (when (eq 'x window-system)
     (set-face-attribute 'default nil :family "Ubuntu Mono" :height 120)
     (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono" :height 1.0)
-    (set-face-attribute 'variable-pitch nil :family "ETBookOT" :height 1.1))
+    (set-face-attribute 'variable-pitch nil :family "Source Sans Pro" :height 1.05))
 
   (defun my/toggle-transparency ()
     (interactive)
@@ -77,9 +77,7 @@
       shift-select-mode nil
       split-height-threshold 84		; disssuade horizontal split
       uniquify-buffer-name-style 'post-forward
-      vc-follow-symlinks t
-      ;; navigate read-only buffers w/o modifiers (C-x C-q)
-      view-read-only t)
+      vc-follow-symlinks t)
 
 ;; Don't add custom section to init.el
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -144,6 +142,11 @@
 ;; C-x C-l :: downcase-region
 ;; C-x C-u :: upcase-region
 
+;; navigate read-only buffers w/o modifiers (C-x C-q)
+(setq view-read-only t)
+(define-key view-mode-map (kbd "s") 'isearch-forward-regexp)
+(define-key view-mode-map (kbd "r") 'isearch-backward-regexp)
+
 
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -195,8 +198,9 @@
 
 ;;; Desktop
 
-(tab-bar-mode 1)
-(desktop-save-mode 1)
+(setq tab-bar-show nil)
+
+;; (desktop-save-mode 1)
 ;; desktop-remove
 ;; desktop-clear
 ;; (setq desktop-restore-eager)
