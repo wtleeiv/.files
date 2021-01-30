@@ -1,3 +1,7 @@
+;; grey clouds overhead
+;; tiny black birds rise and fall
+;; snow covers emacs
+
 ;;; Disable interface
 
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -7,26 +11,33 @@
 ;;; Graphical setup
 
 (when window-system
-  (load-theme 'deeper-blue t)
+  (load-theme 'leuven t)
+  ;; (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
   ;; (load-theme 'tango-dark t)
-  (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
 
   (set-frame-parameter (selected-frame) 'alpha '(77 . 55))
   (add-to-list 'default-frame-alist '(alpha . (77 . 55)))
 
   ;; Maximize window if it isn't already
   (when (eq 'ns window-system)
-    (unless (eq 'maximized (frame-parameter (selected-frame) 'fullscreen))
+    ;; now fullscreen will preserve transparency
+    (setq ns-use-native-fullscreen nil)
+    (unless (eq 'maximized (frame-parameter (selected-frame)
+					    'fullscreen))
       (toggle-frame-maximized)))
 
   (when (eq 'ns window-system)
-    (set-face-attribute 'default nil :family "Fira Code" :height 130)
-    (set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 1.0)
-    (set-face-attribute 'fixed-pitch nil :family "ETBookOT" :height 1.2))
+    (set-face-attribute 'default nil :family "fira code" :height 130)
+    (set-face-attribute 'fixed-pitch nil :family "Fira Code"
+			:height 1.0)
+    (set-face-attribute 'variable-pitch nil :family "ETBookOT"
+			:height 1.2))
   (when (eq 'x window-system)
     (set-face-attribute 'default nil :family "Ubuntu Mono" :height 120)
-    (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono" :height 1.0)
-    (set-face-attribute 'variable-pitch nil :family "Source Sans Pro" :height 1.05))
+    (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono"
+			:height 1.0)
+    (set-face-attribute 'variable-pitch nil :family "Source Sans Pro"
+			:height 1.05))
 
   (defun my/toggle-transparency ()
     (interactive)
@@ -37,7 +48,7 @@
 		      ((numberp (cdr alpha)) (cdr alpha))
 		      ((numberp (cadr alpha)) (cadr alpha)))
 		100)
-	   '(77 . 55) '(100 . 100)))))
+	   '(66 . 44) '(100 . 100)))))
 
   (global-set-key (kbd "C-c t") 'my/toggle-transparency))
 
@@ -51,7 +62,7 @@
 ;;; Defaults
 
 (setq-default cursor-type 'bar
-	      fill-column 77)
+	      fill-column 70)
 
 (setq user-full-name "Tyler Lee"
       user-mail-address "wtleeiv@gmail.com"
@@ -87,7 +98,7 @@
 ;;; Modes
 
 ;; Completion
-(setq completion-styles '(initials partial-completion flex))
+(setq completion-styles '(partial-completion substring flex))
 (fido-mode 1)
 ;; Highlight matching pair
 (show-paren-mode t)
@@ -116,11 +127,12 @@
 ;; Remember last place in visited files
 (save-place-mode 1)
 ;; Select windows with S-<up/down/left/right>
-(windmove-default-keybindings)
-(setq windmove-wrap-around t)
+;(windmove-default-keybindings)
+;(setq windmove-wrap-around t)
 ;; Window undo/redo C-c <left/right>
 (winner-mode 1)
 
+;;; Hooks
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -143,15 +155,15 @@
 ;; C-x C-u :: upcase-region
 
 ;; navigate read-only buffers w/o modifiers (C-x C-q)
+(require 'view)
 (setq view-read-only t)
-(define-key view-mode-map (kbd "s") 'isearch-forward-regexp)
-(define-key view-mode-map (kbd "r") 'isearch-backward-regexp)
-
+;; don't remap view mode search "s", since "n" and "p" wont work
 
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 
+(global-set-key (kbd "C-h a") 'apropos)	; apropos all the things
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c i") 'imenu)
 
@@ -174,7 +186,7 @@
 (defun my/edit-config ()
   (interactive)
   (find-file user-init-file))
-(global-set-key (kbd "C-c c") 'my/edit-config)
+(global-set-key (kbd "C-c e") 'my/edit-config)
 
 (defun my/tldr ()
   "TLDRs a query or region if any."
@@ -194,7 +206,11 @@
 		      windmove-up windmove-down
 		      windmove-left windmove-right
 		      recenter-top-bottom other-window))
-	(advice-add my/command :after 'my/pulse-point-line))
+  (advice-add my/command :after 'my/pulse-point-line))
+
+(require 'org)
+(setq org-timer-default-timer 25)
+(global-set-key (kbd "C-c c") 'org-timer-set-timer)
 
 ;;; Desktop
 
@@ -204,3 +220,8 @@
 ;; desktop-remove
 ;; desktop-clear
 ;; (setq desktop-restore-eager)
+
+
+;; my dot emacs grows
+;; then one day, I look inside
+;; singularity
