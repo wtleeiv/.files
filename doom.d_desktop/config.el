@@ -26,7 +26,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-miramare)
+(setq doom-theme 'doom-wilmersdorf)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -106,9 +106,9 @@
 ;; (after! tramp
 ;;   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
-;; (after! which-key
-;;   (setq which-key-idle-delay 0.01
-;;         which-key-idle-secondary-delay 0.01))
+(after! which-key
+  (setq which-key-idle-delay 0.01
+        which-key-idle-secondary-delay 0.01))
 
 (after! writeroom-mode
   (remove-hook 'writeroom-global-effects 'writeroom-set-alpha)
