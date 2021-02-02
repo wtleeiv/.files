@@ -4,7 +4,8 @@
 
 ;;; Disable interface
 
-;; (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(unless (eq 'ns window-system)
+  (when (fboundp 'menu-bar-mode) (menu-bar-mode -1)))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
@@ -14,15 +15,18 @@
 
   ;;;; Load color theme
 
-  (load-theme 'leuven t)
+  ;; (load-theme 'leuven t)
 
   ;;;;; Dark theme -- doesn't render wikipedia equations properly :(
   ;; - due to their transparent background and black text
   ;; - I tried disabling images in ~shr~ ... not worth it
   ;; So, ~leuven~ it is, until I eventually move back to Doom
 
-  ;; (load-theme 'deeper-blue t)
-  ;; (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
+  ;; huzzah! wombat works!
+  ;; fyi: *help* buffer links are hard to see
+
+  (load-theme 'wombat t)
+  (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
 
   ;;;; Make initial frame transparent
 
@@ -214,6 +218,7 @@
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "C-x C-M-t") 'transpose-regions)
 
 ;; explicitly map <home> and <end>
 ;; - desktop maps them to beg/end-of-line
