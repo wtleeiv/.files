@@ -29,7 +29,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-sourcerer)
+(setq doom-theme 'doom-wilmersdorf)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -80,11 +80,11 @@
 (use-package! lispy ; lispyville will run in any mode lispy does
   :hook ((cider-repl-mode . lispy-mode)))
 
-(when (eq window-system 'ns) ; only on mac
+
+(when (eq window-system 'ns)            ; only on mac
   (setq ns-command-modifier 'control
-        ;; ns-control-modifier 'meta
-        ;; ns-option-modifier 'super
-        ))
+        ns-control-modifier 'meta
+        ns-option-modifier 'meta))
 
 (defun toggle-transparency ()
   (interactive)
@@ -98,8 +98,13 @@
                                            (cadr alpha)))
                                     100))))
     (set-frame-parameter nil 'alpha (if transparency-off
-                                        '(85 . 75)
+                                        '(77 . 55)
                                       '(100 . 100)))))
 
 (map! :map doom-leader-toggle-map
       :desc "Transparency" "T" #'toggle-transparency)
+
+(add-hook! window-setup-hook
+  (setq display-time-day-and-date t
+        display-time-default-load-average nil)
+  (display-time))

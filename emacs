@@ -4,21 +4,33 @@
 
 ;;; Disable interface
 
-(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+;; (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
 ;;; Graphical setup
 
 (when window-system
+
+  ;;;; Load color theme
+
   (load-theme 'leuven t)
+
+  ;;;;; Dark theme -- doesn't render wikipedia equations properly :(
+  ;; - due to their transparent background and black text
+  ;; - I tried disabling images in ~shr~ ... not worth it
+  ;; So, ~leuven~ it is, until I eventually move back to Doom
+
+  ;; (load-theme 'deeper-blue t)
   ;; (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
-  ;; (load-theme 'tango-dark t)
+
+  ;;;; Make initial frame transparent
 
   (set-frame-parameter (selected-frame) 'alpha '(77 . 55))
   (add-to-list 'default-frame-alist '(alpha . (77 . 55)))
 
-  ;; Maximize window if it isn't already
+  ;;;; Maximize window if it isn't already
+
   (when (eq 'ns window-system)
     ;; now fullscreen will preserve transparency
     (setq ns-use-native-fullscreen nil)
@@ -26,16 +38,32 @@
 					    'fullscreen))
       (toggle-frame-maximized)))
 
+  ;;;; Setup initial window layout
+
+  (split-window-right)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1)
+
+  ;;;; Fonts
+
+  ;;;;; Mac
+
   (when (eq 'ns window-system)
     (set-face-attribute 'default nil :family "fira code" :height 130)
     (set-face-attribute 'fixed-pitch nil :family "Fira Code"
 			:height 1.0)
     (set-face-attribute 'variable-pitch nil :family "ETBookOT"
 			:height 1.2))
+
+  ;;;;; Linux
+
   (when (eq 'x window-system)
     (set-face-attribute 'default nil :family "Ubuntu Mono" :height 120)
     (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono"
 			:height 1.0)
+    ;; doesn't seem to render ETBookOT properly
+    ;; - the characters do not resting on a horizontal line
     (set-face-attribute 'variable-pitch nil :family "Source Sans Pro"
 			:height 1.05))
 
@@ -48,16 +76,17 @@
 		      ((numberp (cdr alpha)) (cdr alpha))
 		      ((numberp (cadr alpha)) (cadr alpha)))
 		100)
-	   '(66 . 44) '(100 . 100)))))
+	   '(77 . 55) '(100 . 100)))))
 
   (global-set-key (kbd "C-c t") 'my/toggle-transparency))
 
-;;; Setup modifier keys
+;;; Setup modifier keys on Mac
 
-(when (eq 'ns window-system)
-  (setq ns-command-modifier 'control
-        ns-control-modifier 'meta
-	ns-option-modifier 'meta))
+;; no longer needed, since kinesis keyboard tap & hold is awesome
+;; (when (eq 'ns window-system)
+;;   (setq ns-command-modifier 'control
+;;         ns-control-modifier 'meta
+;; 	ns-option-modifier 'meta))
 
 ;;; Defaults
 
@@ -78,7 +107,9 @@
       dired-listing-switches "-alh"
       ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain
-      help-window-select t	      ; focus help sindow when created
+      ;; focus help sindow when created
+      ;; - so I can close them easier with "q"
+      help-window-select t
       inhibit-startup-message t
       initial-scratch-message nil
       require-final-newline t
@@ -86,7 +117,9 @@
       sentence-end-double-space nil
       set-mark-command-repeat-pop t
       shift-select-mode nil
-      split-height-threshold 84		; disssuade horizontal split
+      ;; disssuade horizontal split
+      ;; - with initial window setup, this not might be necessary
+      split-height-threshold 84
       uniquify-buffer-name-style 'post-forward
       vc-follow-symlinks t)
 
@@ -97,7 +130,10 @@
 
 ;;; Modes
 
+;;;; Display-modifying
+
 ;; Completion
+;; - ~initials~ didn't seem to work for me, use ~partial-completion~ first
 (setq completion-styles '(partial-completion substring flex))
 (fido-mode 1)
 ;; Highlight matching pair
@@ -105,7 +141,7 @@
 (setq show-paren-delay 0)
 ;; Wraps with active region!
 (electric-pair-mode 1)
-;; Column number
+;; Column number in modeline
 (column-number-mode 1)
 ;; Display time
 (setq display-time-day-and-date t
@@ -114,9 +150,13 @@
 ;; Syntax highlighting
 (global-font-lock-mode 1)
 
+;;;; Usability-modifying
+
 ;; Update buffer when file changes on disk
 (global-auto-revert-mode t)
 ;; Recursive editing
+;; - sometimes useful, sometimes I forget to turn them off
+;; - exit minibuffer session with "C-]"
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
 ;; Change navigation
@@ -127,26 +167,35 @@
 ;; Remember last place in visited files
 (save-place-mode 1)
 ;; Select windows with S-<up/down/left/right>
-;(windmove-default-keybindings)
-;(setq windmove-wrap-around t)
+;; - "M-o" binding for ~other-window~ is good enough
+;; - org-mode bindings override
+(windmove-default-keybindings)
+(setq windmove-wrap-around t)
 ;; Window undo/redo C-c <left/right>
 (winner-mode 1)
 
 ;;; Hooks
 
+;; "y/n" is good-enough, and less intrusive
 (fset 'yes-or-no-p 'y-or-n-p)
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; Clean up buffers on save
+;; - disable, since this might affect TRAMP buffers
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; Garbage collect when idle
 (add-hook 'focus-out-hook 'garbage-collect)
 
 ;;; Keybindings
+
+;;;; Swap regex and default isearch bindings
 
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-;; comment-dwim :: M-;
+;;;; Swap dwim commands for their word-based siblings
+
+;; comment-dwim :: M-; -- for reference
 (global-set-key (kbd "M-c") 'capitalize-dwim)
 (global-set-key (kbd "M-l") 'downcase-dwim)
 (global-set-key (kbd "M-u") 'upcase-dwim)
@@ -154,18 +203,33 @@
 ;; C-x C-l :: downcase-region
 ;; C-x C-u :: upcase-region
 
-;; navigate read-only buffers w/o modifiers (C-x C-q)
+;;;; Navigate read-only buffers w/o modifiers (C-x C-q)
+
 (require 'view)
 (setq view-read-only t)
 ;; don't remap view mode search "s", since "n" and "p" wont work
+
+;;;; Editing
 
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 
+;; explicitly map <home> and <end>
+;; - desktop maps them to beg/end-of-line
+;; - and C-<home>/<end> to beg/end-of-buffer
+(global-set-key (kbd "<home>") 'beginning-of-buffer)
+(global-set-key (kbd "<end>") 'end-of-buffer)
+
+;;;; Usability
+
 (global-set-key (kbd "C-h a") 'apropos)	; apropos all the things
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c i") 'imenu)
+
+;;;; Function keys
+
+;;;;; Windows
 
 (global-set-key (kbd "<f5>") (lambda ()
 			       (interactive)
@@ -178,10 +242,12 @@
 (global-set-key (kbd "<f7>") 'delete-other-windows)
 (global-set-key (kbd "C-<f7>") 'delete-window)
 
+;;;;; Buffers
+
 (global-set-key (kbd "<f8>") 'previous-buffer)
 (global-set-key (kbd "<f9>") 'next-buffer)
 
-;;; Functions
+;;; Functions and "C-c" bindings
 
 (defun my/edit-config ()
   (interactive)
@@ -212,14 +278,22 @@
 (setq org-timer-default-timer 25)
 (global-set-key (kbd "C-c c") 'org-timer-set-timer)
 
-;;; Desktop
+;;; Sessions
 
+;;;; Tabs
+
+;; "C-x t" prefix
 (setq tab-bar-show nil)
 
+;;;; Desktop
+
+;; Desktop mode -- exists
+;; - maybe enable later
 ;; (desktop-save-mode 1)
-;; desktop-remove
-;; desktop-clear
 ;; (setq desktop-restore-eager)
+;; Functions to remember
+;; desktop-remove :: delete desktop so emacs won't use it next time it loads
+;; desktop-clear :: clears current emacs session
 
 
 ;; my dot emacs grows
