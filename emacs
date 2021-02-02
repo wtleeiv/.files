@@ -276,6 +276,7 @@
 		      isearch-repeat-forward isearch-repeat-backward
 		      windmove-up windmove-down
 		      windmove-left windmove-right
+		      forward-button backward-button
 		      recenter-top-bottom other-window))
   (advice-add my/command :after 'my/pulse-point-line))
 
