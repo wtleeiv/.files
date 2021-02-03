@@ -26,7 +26,10 @@
   ;; fyi: *help* buffer links are hard to see
 
   (load-theme 'wombat t)
+  ;; cooler-looking comments
   (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
+  ;; make the cursor easier to spot than the default grey
+  (set-face-attribute 'cursor 'nil :background "systemPurpleColor")
 
   ;;;; Make initial frame transparent
 
@@ -54,7 +57,7 @@
   ;;;;; Mac
 
   (when (eq 'ns window-system)
-    (set-face-attribute 'default nil :family "fira code" :height 130)
+    (set-face-attribute 'default nil :family "Fira Code" :height 130)
     (set-face-attribute 'fixed-pitch nil :family "Fira Code"
 			:height 1.0)
     (set-face-attribute 'variable-pitch nil :family "ETBookOT"
@@ -166,8 +169,8 @@
 ;; Change navigation
 (global-highlight-changes-mode 1)
 (setq highlight-changes-visibility-initial-state nil)
-(global-set-key (kbd "C-c n") 'highlight-changes-next-change)
-(global-set-key (kbd "C-c p") 'highlight-changes-previous-change)
+(global-set-key (kbd "C-c <down>") 'highlight-changes-next-change)
+(global-set-key (kbd "C-c <up>") 'highlight-changes-previous-change)
 ;; Remember last place in visited files
 (save-place-mode 1)
 ;; Select windows with S-<up/down/left/right>
