@@ -90,7 +90,7 @@
 ;; (when (eq 'ns window-system)
 ;;   (setq ns-command-modifier 'control
 ;;         ns-control-modifier 'meta
-;; 	ns-option-modifier 'meta))
+;;         ns-option-modifier 'meta))
 
 ;;; Defaults
 
@@ -111,7 +111,7 @@
       dired-listing-switches "-alh"
       ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain
-      ;; focus help sindow when created
+      ;; focus help window when created
       ;; - so I can close them easier with "q"
       help-window-select t
       inhibit-startup-message t
