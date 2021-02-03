@@ -280,9 +280,10 @@
 		      recenter-top-bottom other-window))
   (advice-add my/command :after 'my/pulse-point-line))
 
-(require 'org)
-(setq org-timer-default-timer 25)
-(global-set-key (kbd "C-c c") 'org-timer-set-timer)
+(autoload 'org-timer-set-timer "org-timer" "get up and move!" t nil)
+(with-eval-after-load "org-timer"
+  (setq org-timer-default-timer 25))
+(global-set-key (kbd "C-c p") 'org-timer-set-timer)
 
 ;;; Sessions
 
