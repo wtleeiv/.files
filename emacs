@@ -275,6 +275,7 @@
 
 (defun my/pulse-point-line (&rest _)
   (pulse-momentary-highlight-one-line (point)))
+;; you can pulse current line with C-l
 (dolist (my/command '(scroll-up-command scroll-down-command
 		      isearch-repeat-forward isearch-repeat-backward
 		      windmove-up windmove-down
@@ -284,8 +285,8 @@
   (advice-add my/command :after 'my/pulse-point-line))
 
 (autoload 'org-timer-set-timer "org-timer" "get up and move!" t nil)
-(with-eval-after-load "org-timer"
-  (setq org-timer-default-timer 25))
+;; (with-eval-after-load "org-timer") -- not needed, since
+(setq org-timer-default-timer 25) ; defined with defvar
 (global-set-key (kbd "C-c p") 'org-timer-set-timer)
 
 ;;; Sessions
