@@ -107,7 +107,7 @@
       backup-directory-alist '(("" . "~/.emacs.d/backup"))
       auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t))
 
-      apropos-do-all t			; better apropos searching
+      apropos-do-all t ; better apropos searching
       buffer-file-coding-system 'utf-8-unix
       confirm-kill-processes nil
       delete-by-moving-to-trash t
@@ -124,9 +124,8 @@
       sentence-end-double-space nil
       set-mark-command-repeat-pop t
       shift-select-mode nil
-      ;; disssuade horizontal split
-      ;; - with initial window setup, this not might be necessary
-      split-height-threshold 84
+      ;; prevent horizontal split
+      split-height-threshold nil
       uniquify-buffer-name-style 'post-forward
       vc-follow-symlinks t)
 
@@ -144,8 +143,8 @@
 (setq completion-styles '(partial-completion substring flex))
 (fido-mode 1)
 ;; Highlight matching pair
-(show-paren-mode t)
 (setq show-paren-delay 0)
+(show-paren-mode 1)
 ;; Wraps with active region!
 (electric-pair-mode 1)
 ;; Column number in modeline
@@ -218,7 +217,9 @@
 
 ;;;; Editing
 
+;; rebinds center-line, center-paragraph
 (global-set-key (kbd "M-o") 'other-window)
+
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "C-x C-M-t") 'transpose-regions)
@@ -288,6 +289,16 @@
 ;; (with-eval-after-load "org-timer") -- not needed, since
 (setq org-timer-default-timer 25) ; defined with defvar
 (global-set-key (kbd "C-c p") 'org-timer-set-timer)
+
+(defun my/recentf-completing-read ()
+  (interactive)
+  (let ((my/file-to-open (completing-read "Recent files: "
+					  recentf-list nil t)))
+    (when my/file-to-open
+      (find-file my/file-to-open))))
+;; rebinds find-file-read-only -- use C-x C-q to toggle read-only mode
+;; set recentf-max-saved-items to something >20 (default) if desired
+(global-set-key (kbd "C-x C-r") 'my/recentf-completing-read)
 
 ;;; Sessions
 
