@@ -258,10 +258,15 @@
 
 ;;; Functions and "C-c" bindings
 
+;;;; easy config editing
+
 (defun my/edit-config ()
   (interactive)
   (find-file user-init-file))
+
 (global-set-key (kbd "C-c e") 'my/edit-config)
+
+;;;; tldr search
 
 (defun my/tldr ()
   "TLDRs a query or region if any."
@@ -272,11 +277,15 @@
     (if mark-active
         (buffer-substring (region-beginning) (region-end))
       (read-string "TLDR: ")))))
+
 (global-set-key (kbd "C-c ?") 'my/tldr)
+
+;;;; pulse line on common navigation jumps
 
 (defun my/pulse-point-line (&rest _)
   (pulse-momentary-highlight-one-line (point)))
-;; you can pulse current line with C-l
+
+;;;; you can pulse current line with C-l
 (dolist (my/command '(scroll-up-command scroll-down-command
 		      isearch-repeat-forward isearch-repeat-backward
 		      windmove-up windmove-down
@@ -285,10 +294,34 @@
 		      recenter-top-bottom other-window))
   (advice-add my/command :after 'my/pulse-point-line))
 
+;;;; auto-pomodoro -- via org-timer-set-timer
+
 (autoload 'org-timer-set-timer "org-timer" "get up and move!" t nil)
 ;; (with-eval-after-load "org-timer") -- not needed, since
 (setq org-timer-default-timer 25) ; defined with defvar
-(global-set-key (kbd "C-c p") 'org-timer-set-timer)
+
+(defun my/auto-pomodoro () ; popup display code from ns-print-buffer
+  (let ((last-nonmenu-event (if (listp last-nonmenu-event)
+				last-nonmenu-event
+                              ;; Fake it -- ensure popup is displayed
+                              '(mouse-1 POSITION 1))))
+    (if (y-or-n-p "Time to take a break")
+	(progn
+	  (org-timer-set-timer org-timer-default-timer)
+	  (message "Good boy, very mart :)"))
+      (progn
+	(org-timer-set-timer 2)
+	(message "Ming!")))))
+
+(add-hook 'org-timer-done-hook 'my/auto-pomodoro)
+
+(add-hook 'emacs-startup-hook
+	  (lambda ()
+	    (org-timer-set-timer org-timer-default-timer)))
+
+;;;; recentf and completing read binding
+
+(recentf-mode 1)
 
 (defun my/recentf-completing-read ()
   (interactive)
@@ -296,6 +329,7 @@
 					  recentf-list nil t)))
     (when my/file-to-open
       (find-file my/file-to-open))))
+
 ;; rebinds find-file-read-only -- use C-x C-q to toggle read-only mode
 ;; set recentf-max-saved-items to something >20 (default) if desired
 (global-set-key (kbd "C-x C-r") 'my/recentf-completing-read)
