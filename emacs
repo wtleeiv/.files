@@ -29,7 +29,7 @@
   ;; cooler-looking comments
   (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
   ;; make the cursor easier to spot than the default grey
-  (set-face-attribute 'cursor 'nil :background "systemPurpleColor")
+  (set-face-attribute 'cursor 'nil :background "LightSlateBlue")
 
   ;;;; Make initial frame transparent
 
@@ -330,9 +330,8 @@
     (when my/file-to-open
       (find-file my/file-to-open))))
 
-;; rebinds find-file-read-only -- use C-x C-q to toggle read-only mode
 ;; set recentf-max-saved-items to something >20 (default) if desired
-(global-set-key (kbd "C-x C-r") 'my/recentf-completing-read)
+(global-set-key (kbd "C-c r") 'my/recentf-completing-read)
 
 ;;; Sessions
 
@@ -351,6 +350,29 @@
 ;; desktop-remove :: delete desktop so emacs won't use it next time it loads
 ;; desktop-clear :: clears current emacs session
 
+;;; Tramp
+
+;; don't waste time checking vc for remote files
+(setq vc-ignore-dir-regexp
+                (format "\\(%s\\)\\|\\(%s\\)"
+                        vc-ignore-dir-regexp
+                        tramp-file-name-regexp))
+;; use cached directory contents for filename completion
+(setq tramp-completion-reread-directory-timeout nil)
+
+;; cache remote file properties for N sec
+;; - perhaps set to nil -- always use cache
+(setq remote-file-name-inhibit-cache 10) ; default -- 10
+
+;; log file caching ... for now (testing purposes)
+(setq tramp-verbose 7) ; default -- 3
+
+;; persist remote connections, don't prompt credentials every 5 min
+(setq tramp-use-ssh-controlmaster-options t) ; default -- t
+(setq tramp-ssh-controlmaster-options
+      (concat "-o ControlMaster=auto "
+	      "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
+	      "-o ControlPersist=yes"))
 
 ;; my dot emacs grows
 ;; then one day, I look inside
