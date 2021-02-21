@@ -2,6 +2,12 @@
 ;; tiny black birds rise and fall
 ;; snow covers emacs
 
+;; (setq gc-cons-threshold most-positive-fixnum) -- set in early-init.el
+;; (add-hook 'emacs-startup-hook
+;; 	  (lambda ()
+;; 	    (setq gc-cons-threshold
+;; 		  (car (get 'gc-cons-threshold 'standard-value)))))
+
 ;;; Disable interface
 
 (unless (eq 'ns window-system)
@@ -188,7 +194,7 @@
 ;; - disable, since this might affect TRAMP buffers
 ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; Garbage collect when idle
-(add-hook 'focus-out-hook 'garbage-collect)
+;;(add-hook 'focus-out-hook 'garbage-collect)
 
 ;;; Keybindings
 
@@ -357,6 +363,7 @@
                 (format "\\(%s\\)\\|\\(%s\\)"
                         vc-ignore-dir-regexp
                         tramp-file-name-regexp))
+
 ;; use cached directory contents for filename completion
 (setq tramp-completion-reread-directory-timeout nil)
 
@@ -373,6 +380,14 @@
       (concat "-o ControlMaster=auto "
 	      "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
 	      "-o ControlPersist=yes"))
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Ready in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time (time-subtract after-init-time
+							before-init-time)))
+                     gcs-done)))
 
 ;; my dot emacs grows
 ;; then one day, I look inside
