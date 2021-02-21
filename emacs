@@ -23,6 +23,8 @@
 
 ;;;; Graphical
 
+(when window-system
+
 ;;;;; Load color theme
 
   ;; wombat renders eww wikipedia formulas properly
@@ -425,6 +427,11 @@
 ;; emacs init file org-folding
 ;; - can use org speed commands -- maybe try out one day
 (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
+;; disable in scratch buffer
+(add-hook 'lisp-interaction-mode-hook
+	  (lambda ()
+	    (outshine-mode -1)
+	    (outline-minor-mode -1)))
 
 ;;; 
 ;;; my dot emacs grows
