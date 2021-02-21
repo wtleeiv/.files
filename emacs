@@ -22,6 +22,7 @@
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
 ;;;; Graphical
+
 ;;;;; Load color theme
 
   ;; wombat renders eww wikipedia formulas properly
@@ -160,26 +161,18 @@
 ;;;;;; Usability-modifying
 
 ;; Update buffer when file changes on disk
-(global-auto-revert-mode t)
+;; - will not try to revert remote (tramp) files
+;; - auto-revert-tail-mode *does* work for remote files
+(global-auto-revert-mode 1)
+
+;; Remember last place in visited files
+(save-place-mode 1)
+
 ;; Recursive editing
 ;; - sometimes useful, sometimes I forget to turn them off
 ;; - exit minibuffer session with "C-]"
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
-;; Change navigation
-(global-highlight-changes-mode 1)
-(setq highlight-changes-visibility-initial-state nil)
-(global-set-key (kbd "C-c <down>") 'highlight-changes-next-change)
-(global-set-key (kbd "C-c <up>") 'highlight-changes-previous-change)
-;; Remember last place in visited files
-(save-place-mode 1)
-;; Select windows with S-<up/down/left/right>
-;; - "M-o" binding for ~other-window~ is good enough
-;; - org-mode bindings override
-(windmove-default-keybindings)
-(setq windmove-wrap-around t)
-;; Window undo/redo C-c <left/right>
-(winner-mode 1)
 
 ;;;;; Hooks
 
@@ -213,6 +206,7 @@
 ;;         ns-option-modifier 'meta))
 
 ;;;;;; Swaps
+
 ;;;;;;; Swap regex and default isearch bindings
 
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -231,6 +225,7 @@
 ;; C-x C-u :: upcase-region
 
 ;;;;;; Additions
+
 ;;;;;;; Navigate read-only buffers w/o modifiers (C-x C-q)
 
 (require 'view)
@@ -258,6 +253,21 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c i") 'imenu)
 
+;; Change navigation
+(global-highlight-changes-mode 1)
+(setq highlight-changes-visibility-initial-state nil)
+(global-set-key (kbd "C-c <down>") 'highlight-changes-next-change)
+(global-set-key (kbd "C-c <up>") 'highlight-changes-previous-change)
+
+;; Select windows with S-<up/down/left/right>
+;; - "M-o" binding for ~other-window~ is good enough
+;; - org-mode bindings override
+(windmove-default-keybindings)
+(setq windmove-wrap-around t)
+
+;; Window undo/redo C-c <left/right>
+(winner-mode 1)
+
 ;;;;;;; Function keys
 
 ;;;;;;;; Windows
@@ -280,7 +290,7 @@
 
 ;;;;; Functions and "C-c" bindings
 
-;;;;;; easy config editing
+;;;;;; Easy config editing
 
 (defun my/edit-config ()
   (interactive)
@@ -288,7 +298,7 @@
 
 (global-set-key (kbd "C-c e") 'my/edit-config)
 
-;;;;;; tldr search
+;;;;;; Tldr search
 
 (defun my/tldr ()
   "TLDRs a query or region if any."
@@ -302,7 +312,7 @@
 
 (global-set-key (kbd "C-c ?") 'my/tldr)
 
-;;;;;; pulse line on common navigation jumps
+;;;;;; Pulse line on common navigation jumps
 
 (defun my/pulse-point-line (&rest _)
   (pulse-momentary-highlight-one-line (point)))
@@ -316,7 +326,7 @@
 		      recenter-top-bottom other-window))
   (advice-add my/command :after 'my/pulse-point-line))
 
-;;;;;; auto-pomodoro -- via org-timer-set-timer
+;;;;;; Auto-pomodoro -- via org-timer-set-timer
 
 (autoload 'org-timer-set-timer "org-timer" "get up and move!" t nil)
 ;; (with-eval-after-load "org-timer") -- not needed, since
@@ -341,7 +351,7 @@
 	  (lambda ()
 	    (org-timer-set-timer org-timer-default-timer)))
 
-;;;;;; recentf and completing read binding
+;;;;;; Recentf and completing read binding
 
 (recentf-mode 1)
 
@@ -413,7 +423,7 @@
 ;;;; Outshine
 
 ;; emacs init file org-folding
-;; can use org speed commands -- maybe try out one day
+;; - can use org speed commands -- maybe try out one day
 (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
 
 ;;; 
