@@ -80,11 +80,10 @@
 (use-package! lispy ; lispyville will run in any mode lispy does
   :hook ((cider-repl-mode . lispy-mode)))
 
-
 (when (eq window-system 'ns)            ; only on mac
-  (setq ns-command-modifier 'control
-        ns-control-modifier 'meta
-        ns-option-modifier 'meta))
+  (setq ;; ns-command-modifier 'control
+        ;; ns-control-modifier 'meta
+        ns-right-option-modifier 'meta))
 
 (defun toggle-transparency ()
   (interactive)
@@ -104,7 +103,30 @@
 (map! :map doom-leader-toggle-map
       :desc "Transparency" "T" #'toggle-transparency)
 
-(add-hook! window-setup-hook
+(add-hook! window-setup
   (setq display-time-day-and-date t
         display-time-default-load-average nil)
   (display-time))
+
+(autoload 'org-timer-set-timer "org-timer" "get up and move!" t nil)
+;; (with-eval-after-load "org-timer") -- not needed, since
+(setq org-timer-default-timer 20) ; defined with defvar
+
+(defun my/auto-pomodoro ()   ; popup display code from ns-print-buffer
+  (let ((last-nonmenu-event (if (listp last-nonmenu-event)
+                                last-nonmenu-event
+                              ;; Fake it -- ensure popup is displayed
+                              '(mouse-1 POSITION 1))))
+    (if (y-or-n-p "Time to take a break")
+        (progn
+          (org-timer-set-timer org-timer-default-timer)
+          (message "Good boy, very mart :)"))
+      (progn
+        (org-timer-set-timer 2)
+        (message "Ming!")))))
+
+(add-hook 'org-timer-done-hook 'my/auto-pomodoro)
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (org-timer-set-timer org-timer-default-timer)))
