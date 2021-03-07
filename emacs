@@ -439,6 +439,10 @@
 (setq pdf-view-midnight-colors
       (cons "#f6f3e8" "#242424"))
 
+;;;; Magit
+
+(global-set-key (kbd "C-c g") 'magit-file-dispatch)
+
 ;;; 
 ;;; my dot emacs grows
 ;;; then one day, I look inside
