@@ -51,11 +51,11 @@
 
 ;;;;; Setup initial window layout
 
-  (split-window-right)
-  (split-window-right)
-  (balance-windows)
-  (other-window 1)
-
+  (when (eq 'ns window-system)
+    (split-window-right)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
 ;;;;; Fonts
 
 ;;;;;; Mac
@@ -409,18 +409,18 @@
 	      "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
 	      "-o ControlPersist=yes"))
 
-
-
 ;;; Packages
-
-;; keep track of packages I use
-(setq my/package-list
-      '(outshine))
 
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
 ;; (package-initialize) -- unnecessary in emacs 27+
+
+;; native-compile packages
+(setq package-native-compile t)
+
+;; asynchronous compilation
+(setq comp-deferred-compilation t)
 
 ;;;; Outshine
 
@@ -432,6 +432,12 @@
 	  (lambda ()
 	    (outshine-mode -1)
 	    (outline-minor-mode -1)))
+
+;;;; Pdf tools
+
+(pdf-tools-install)
+(setq pdf-view-midnight-colors
+      (cons "#f6f3e8" "#242424"))
 
 ;;; 
 ;;; my dot emacs grows
