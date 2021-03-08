@@ -409,6 +409,17 @@
 	      "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
 	      "-o ControlPersist=yes"))
 
+;;;;; Org
+
+(setq org-directory "~/org/")
+(setq org-agenda-files org-directory)
+
+(setq org-src-preserve-indentation t)
+(setq org-src-confirm-babel-evaluate nil)
+
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c l") 'org-store-link)
+
 ;;; Packages
 
 (require 'package)
