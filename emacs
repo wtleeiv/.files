@@ -33,7 +33,7 @@
   ;; cooler-looking comments
   (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
   ;; make the cursor easier to spot than the default grey
-  (set-face-attribute 'cursor 'nil :background "LightSlateBlue")
+  (set-face-attribute 'cursor 'nil :background "#f6f3e8")
 
 ;;;;; Make initial frame transparent
 
@@ -409,17 +409,6 @@
 	      "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
 	      "-o ControlPersist=yes"))
 
-;;;;; Org
-
-(setq org-directory "~/org/")
-(setq org-agenda-files org-directory)
-
-(setq org-src-preserve-indentation t)
-(setq org-src-confirm-babel-evaluate nil)
-
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c l") 'org-store-link)
-
 ;;; Packages
 
 (require 'package)
@@ -453,6 +442,58 @@
 ;;;; Magit
 
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
+
+;;;; Org
+
+;; also install:
+;; - org-noter
+;; - anki-editor
+;; - org-anki
+
+(setq org-directory "~/notes/")
+(setq org-agenda-files (list org-directory))
+(setq org-default-notes-file (concat org-directory "inbox.org"))
+
+(setq org-capture-templates
+      `(("n" "Note" entry (file+headline org-default-notes-file
+					 "Notes")
+	 "** %?")
+	("t" "Task" entry (file+headline org-default-notes-file
+					 "Tasks")
+	 "** TODO %?")))
+
+(setq org-src-preserve-indentation t)
+(setq org-src-confirm-babel-evaluate nil)
+
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c l") 'org-store-link)
+
+;;;;; Org noter
+
+(setq org-noter-notes-search-path (list org-directory))
+(setq org-noter-always-create-frame nil)
+(setq org-noter-separate-notes-from-heading nil)
+
+;;;;; Deft
+
+(setq deft-directory org-directory)
+
+(global-set-key (kbd "C-c n s") 'deft)
+
+;;;;; Org roam
+
+(setq org-roam-directory org-directory)
+(setq org-roam-buffer-position 'left)
+(setq org-roam-buffer-width 0.15)
+(setq org-roam-db-update-method 'immediate)
+
+(global-set-key (kbd "C-c n r") 'org-roam)
+(global-set-key (kbd "C-c n f") 'org-roam-find-file)
+(global-set-key (kbd "C-c n g") 'org-roam-graph)
+
+(global-set-key (kbd "C-c n i") 'org-roam-insert)
+(global-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
 
 ;;; 
 ;;; my dot emacs grows
