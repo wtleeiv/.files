@@ -58,6 +58,7 @@
 ;; they are implemented.
 
 (setq confirm-kill-emacs nil)
+(setq enable-local-variables t)
 
 (after! evil ; move to newly-split windows
   (setq evil-split-window-below t
