@@ -77,8 +77,8 @@
   (remove-hook 'writeroom-mode-hook '+zen-enable-text-scaling-mode-h))
 
 
-(use-package! lispy ; lispyville will run in any mode lispy does
-  :hook ((cider-repl-mode . lispy-mode)))
+;; (use-package! lispy ; lispyville will run in any mode lispy does
+;;   :hook ((cider-repl-mode . lispy-mode)))
 
 (when (eq window-system 'ns)            ; only on mac
   (setq ;; ns-command-modifier 'control
