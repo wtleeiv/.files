@@ -82,8 +82,8 @@
   (setq tramp-use-ssh-controlmaster-options t) ; default -- t
   (setq tramp-ssh-controlmaster-options
         (concat "-o ControlMaster=auto "
-	        "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
-	        "-o ControlPersist=yes")))
+                "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
+                "-o ControlPersist=yes")))
 
 (after! which-key
   (setq which-key-idle-delay 0.2
