@@ -64,7 +64,26 @@
         evil-vsplit-window-right t))
 
 (after! tramp
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+  ;; use remote path
+  ;; (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+  ;; don't waste time checking vc for remote files
+  (setq vc-ignore-dir-regexp
+        (format "\\(%s\\)\\|\\(%s\\)"
+                vc-ignore-dir-regexp
+                tramp-file-name-regexp))
+  ;; use cached directory contents for filename completion
+  (setq tramp-completion-reread-directory-timeout nil)
+  ;; cache remote file properties for N sec
+  ;; - perhaps set to nil -- always use cache
+  (setq remote-file-name-inhibit-cache nil) ; default -- 10
+  ;; limit logging to warnings and errors
+  (setq tramp-verbose 2) ; default -- 3
+  ;; persist remote connections, don't prompt credentials every 5 min
+  (setq tramp-use-ssh-controlmaster-options t) ; default -- t
+  (setq tramp-ssh-controlmaster-options
+        (concat "-o ControlMaster=auto "
+	        "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
+	        "-o ControlPersist=yes")))
 
 (after! which-key
   (setq which-key-idle-delay 0.2
