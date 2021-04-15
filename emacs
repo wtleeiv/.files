@@ -9,10 +9,10 @@
 ;;;;; Garbage collection
 
 ;; (setq gc-cons-threshold most-positive-fixnum) -- set in early-init.el
-;; (add-hook 'emacs-startup-hook
-;; 	  (lambda ()
-;; 	    (setq gc-cons-threshold
-;; 		  (car (get 'gc-cons-threshold 'standard-value)))))
+(add-hook 'emacs-startup-hook
+	  (lambda ()
+	    (setq gc-cons-threshold
+		  (car (get 'gc-cons-threshold 'standard-value)))))
 
 ;;;;; Disable interface
 
@@ -112,7 +112,7 @@
       apropos-do-all t ; better apropos searching
       buffer-file-coding-system 'utf-8-unix
       confirm-kill-processes nil
-      delete-by-moving-to-trash t
+      ;; delete-by-moving-to-trash t
       dired-listing-switches "-alh"
       ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain
@@ -409,46 +409,7 @@
 	      "-o ControlPath=/tmp/ssh-ControlPath-%%r@%%h:%%p "
 	      "-o ControlPersist=yes"))
 
-;;; Packages
-
-(require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/"))
-;; (package-initialize) -- unnecessary in emacs 27+
-
-;; native-compile packages
-(setq package-native-compile t)
-
-;; asynchronous compilation
-(setq comp-deferred-compilation t)
-
-;;;; Outshine
-
-;; emacs init file org-folding
-;; - can use org speed commands -- maybe try out one day
-(add-hook 'emacs-lisp-mode-hook 'outshine-mode)
-;; disable in scratch buffer
-(add-hook 'lisp-interaction-mode-hook
-	  (lambda ()
-	    (outshine-mode -1)
-	    (outline-minor-mode -1)))
-
-;;;; Pdf tools
-
-(pdf-tools-install)
-(setq pdf-view-midnight-colors
-      (cons "#f6f3e8" "#242424"))
-
-;;;; Magit
-
-(global-set-key (kbd "C-c g") 'magit-file-dispatch)
-
-;;;; Org
-
-;; also install:
-;; - org-noter
-;; - anki-editor
-;; - org-anki
+;;;;; Org
 
 (setq org-directory "~/notes/")
 (setq org-agenda-files (list org-directory))
@@ -469,6 +430,25 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
 
+;;; Packages
+
+(require 'package)
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/"))
+;; (package-initialize) -- unnecessary in emacs 27+
+
+;; native-compile packages
+(setq package-native-compile t)
+
+;; asynchronous compilation
+(setq comp-deferred-compilation t)
+
+;;;; Org
+
+;; also install:
+;; - anki-editor
+;; - org-anki
+
 ;;;;; Org noter
 
 (setq org-noter-notes-search-path (list org-directory))
@@ -478,22 +458,60 @@
 ;;;;; Deft
 
 (setq deft-directory org-directory)
+(setq deft-recursive t)
 
 (global-set-key (kbd "C-c n s") 'deft)
 
-;;;;; Org roam
+;;;;; Org roam -- v2
 
-(setq org-roam-directory org-directory)
-(setq org-roam-buffer-position 'left)
-(setq org-roam-buffer-width 0.15)
-(setq org-roam-db-update-method 'immediate)
+(add-to-list 'load-path "~/bin/org-roam/")
+(load-library "org-roam")
+(setq org-roam-mode-sections
+      (list 'org-roam-backlinks-insert-section
+            'org-roam-reflinks-insert-section
+	    'org-roam-unlinked-references-insert-section))
+(setq org-roam-directory (concat org-directory "zettelkasten/"))
+(org-roam-setup)
+(define-key global-map (kbd "C-c n f") 'org-roam-node-find)
+(define-key global-map (kbd "C-c n c") 'org-roam-capture)
+(define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
+(define-key global-map (kbd "C-c n r") 'org-roam-buffer-toggle)
 
-(global-set-key (kbd "C-c n r") 'org-roam)
-(global-set-key (kbd "C-c n f") 'org-roam-find-file)
-(global-set-key (kbd "C-c n g") 'org-roam-graph)
+;; org-roam -- v1 setup
 
-(global-set-key (kbd "C-c n i") 'org-roam-insert)
-(global-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
+;; (setq org-roam-directory org-directory)
+;; (setq org-roam-buffer-position 'left)
+;; (setq org-roam-buffer-width 0.15)
+;; (setq org-roam-db-update-method 'immediate)
+
+;; (global-set-key (kbd "C-c n r") 'org-roam)
+;; (global-set-key (kbd "C-c n f") 'org-roam-find-file)
+;; (global-set-key (kbd "C-c n g") 'org-roam-graph)
+
+;; (global-set-key (kbd "C-c n i") 'org-roam-insert)
+;; (global-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
+
+
+;;;; Pdf tools
+
+(pdf-tools-install)
+(setq pdf-view-midnight-colors
+      (cons "#f6f3e8" "#242424"))
+
+;;;; Magit
+
+(global-set-key (kbd "C-c g") 'magit-file-dispatch)
+
+;;;; Outshine
+
+;; emacs init file org-folding
+;; - can use org speed commands -- maybe try out one day
+(add-hook 'emacs-lisp-mode-hook 'outshine-mode)
+;; disable in scratch buffer
+(add-hook 'lisp-interaction-mode-hook
+	  (lambda ()
+	    (outshine-mode -1)
+	    (outline-minor-mode -1)))
 
 ;;; 
 ;;; my dot emacs grows
