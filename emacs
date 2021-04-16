@@ -62,21 +62,18 @@
 
   (when (eq 'ns window-system)
     (set-face-attribute 'default nil :family "Fira Code" :height 130)
-    (set-face-attribute 'fixed-pitch nil :family "Fira Code"
-			:height 1.0)
-    (set-face-attribute 'variable-pitch nil :family "ETBookOT"
-			:height 1.2))
+    (set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 1.0)
+    (set-face-attribute 'variable-pitch nil :family "ETBookOT" :height 1.2))
 
 ;;;;;; Linux
 
   (when (eq 'x window-system)
     (set-face-attribute 'default nil :family "Ubuntu Mono" :height 120)
-    (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono"
-			:height 1.0)
+    (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono" :height 1.0)
+    (set-face-attribute 'fixed-pitch-serif nil :family "Ubuntu Mono" :height 1.0)
     ;; doesn't seem to render ETBookOT properly
     ;; - the characters do not resting on a horizontal line
-    (set-face-attribute 'variable-pitch nil :family "Source Sans Pro"
-			:height 1.05))
+    (set-face-attribute 'variable-pitch nil :family "Source Sans Pro" :height 1.05))
 
 ;;;;; Transparency
   
@@ -98,7 +95,8 @@
 ;;;;; Variables -- setq-default
 
 (setq-default cursor-type 'bar
-	      fill-column 70)
+	      ;; half-screen on chromebook
+	      fill-column 80)
 
 ;;;;; Variables -- setq
 
@@ -106,7 +104,7 @@
       user-mail-address "wtleeiv@gmail.com"
 
       default-directory "~/"
-      backup-directory-alist '(("" . "~/.emacs.d/backup"))
+      backup-directory-alist '(("" . "~/.emacs.d/backup/"))
       auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t))
 
       apropos-do-all t ; better apropos searching
@@ -251,7 +249,7 @@
 
 ;;;;;;; Usability
 
-(global-set-key (kbd "C-h a") 'apropos)	; apropos all the things
+;; (global-set-key (kbd "C-h a") 'apropos)	; apropos all the things
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c i") 'imenu)
 
@@ -423,6 +421,10 @@
 					 "Tasks")
 	 "** TODO %?")))
 
+(setq org-hide-leading-stars t)
+(setq org-hide-emphasis-markers t)
+(setq org-pretty-entities t) ;; toggle with C-c C-x \
+(setq org-return-follows-link t)
 (setq org-src-preserve-indentation t)
 (setq org-src-confirm-babel-evaluate nil)
 
@@ -430,8 +432,14 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
 
-;;; Packages
+(defun my/notes-inbox ()
+  (interactive)
+  (find-file org-default-notes-file))
 
+(global-set-key (kbd "C-c n")
+		'my/notes-inbox)
+
+;;; Packages
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
@@ -457,25 +465,25 @@
 
 ;;;;; Deft
 
-(setq deft-directory org-directory)
-(setq deft-recursive t)
+;; (setq deft-directory org-directory)
+;; (setq deft-recursive t)
 
-(global-set-key (kbd "C-c n s") 'deft)
+;; (global-set-key (kbd "C-c n s") 'deft)
 
 ;;;;; Org roam -- v2
 
-(add-to-list 'load-path "~/bin/org-roam/")
-(load-library "org-roam")
-(setq org-roam-mode-sections
-      (list 'org-roam-backlinks-insert-section
-            'org-roam-reflinks-insert-section
-	    'org-roam-unlinked-references-insert-section))
-(setq org-roam-directory (concat org-directory "zettelkasten/"))
-(org-roam-setup)
-(define-key global-map (kbd "C-c n f") 'org-roam-node-find)
-(define-key global-map (kbd "C-c n c") 'org-roam-capture)
-(define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
-(define-key global-map (kbd "C-c n r") 'org-roam-buffer-toggle)
+;; (add-to-list 'load-path "~/bin/org-roam/")
+;; (load-library "org-roam")
+;; (setq org-roam-mode-sections
+;;       (list 'org-roam-backlinks-insert-section
+;;             'org-roam-reflinks-insert-section
+;; 	    'org-roam-unlinked-references-insert-section))
+;; (setq org-roam-directory (concat org-directory "zettelkasten/"))
+;; (org-roam-setup)
+;; (define-key global-map (kbd "C-c n f") 'org-roam-node-find)
+;; (define-key global-map (kbd "C-c n c") 'org-roam-capture)
+;; (define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
+;; (define-key global-map (kbd "C-c n r") 'org-roam-buffer-toggle)
 
 ;; org-roam -- v1 setup
 
@@ -491,16 +499,19 @@
 ;; (global-set-key (kbd "C-c n i") 'org-roam-insert)
 ;; (global-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
 
+;;;; Diminish
 
-;;;; Pdf tools
-
-(pdf-tools-install)
-(setq pdf-view-midnight-colors
-      (cons "#f6f3e8" "#242424"))
+(diminish 'highlight-changes-mode)
+(diminish 'eldoc-mode)
 
 ;;;; Magit
 
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
+
+;;;; Pdf tools
+
+(pdf-tools-install)
+(setq pdf-view-midnight-colors (cons "#f6f3e8" "#242424"))
 
 ;;;; Outshine
 
@@ -512,6 +523,20 @@
 	  (lambda ()
 	    (outshine-mode -1)
 	    (outline-minor-mode -1)))
+
+;; diminishing outshine-mode non-interactively doesn't work for some reason
+(diminish 'outline-minor-mode)
+
+;;;; Undo tree
+
+(setq undo-tree-auto-save-history t)
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/backup/")))
+;; undo-tree might slow down TRAMP, re-enable lighter to test
+(setq undo-tree-mode-lighter "")
+(setq undo-tree-visualizer-diff t)
+(setq undo-tree-visualizer-timestamps t)
+
+(global-undo-tree-mode)
 
 ;;; 
 ;;; my dot emacs grows
