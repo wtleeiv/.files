@@ -423,6 +423,7 @@
 
 (setq org-hide-leading-stars t)
 (setq org-hide-emphasis-markers t)
+(setq org-list-allow-alphabetical t)
 (setq org-pretty-entities t) ;; toggle with C-c C-x \
 (setq org-return-follows-link t)
 (setq org-src-preserve-indentation t)
@@ -518,14 +519,13 @@
 ;; emacs init file org-folding
 ;; - can use org speed commands -- maybe try out one day
 (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
+(add-hook 'emacs-lisp-mode-hook (lambda () (diminish 'outshine-mode)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (diminish 'outline-minor-mode)))
 ;; disable in scratch buffer
 (add-hook 'lisp-interaction-mode-hook
 	  (lambda ()
 	    (outshine-mode -1)
 	    (outline-minor-mode -1)))
-
-;; diminishing outshine-mode non-interactively doesn't work for some reason
-(diminish 'outline-minor-mode)
 
 ;;;; Undo tree
 
