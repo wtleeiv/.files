@@ -29,11 +29,11 @@
 
   ;; wombat renders eww wikipedia formulas properly
   ;; fyi: *help* buffer links are hard to see
-  (load-theme 'wombat t)
+  ;; (load-theme 'wombat t)
   ;; cooler-looking comments
-  (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
+  ;; (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
   ;; make the cursor easier to spot than the default grey
-  (set-face-attribute 'cursor 'nil :background "#f6f3e8")
+  ;; (set-face-attribute 'cursor 'nil :background "#f6f3e8")
 
 ;;;;; Make initial frame transparent
 
@@ -88,7 +88,7 @@
 		100)
 	   '(77 . 55) '(100 . 100)))))
 
-  (global-set-key (kbd "C-c t") 'my/toggle-transparency))
+  (global-set-key (kbd "C-c T") 'my/toggle-transparency))
 
 ;;;; Common
 
@@ -355,7 +355,7 @@
 
 (recentf-mode 1)
 
-(defun my/recentf-completing-read ()
+(defun my/recent-files ()
   (interactive)
   (let ((my/file-to-open (completing-read "Recent files: "
 					  recentf-list nil t)))
@@ -363,7 +363,7 @@
       (find-file my/file-to-open))))
 
 ;; set recentf-max-saved-items to something >20 (default) if desired
-(global-set-key (kbd "C-c r") 'my/recentf-completing-read)
+(global-set-key (kbd "C-c r") 'my/recent-files)
 
 ;;;;; Sessions
 
@@ -505,6 +505,35 @@
 (diminish 'highlight-changes-mode)
 (diminish 'eldoc-mode)
 
+;;;; Doom themes
+
+(setq doom-themes-enable-bold t)
+(setq doom-themes-enable-italic t)
+
+(setq my/theme 'dark)
+(setq my/dark-theme 'doom-miramare)
+(setq my/light-theme 'doom-flatwhite)
+
+(load-theme my/dark-theme t)
+(with-eval-after-load 'org-mode
+  (doom-themes-enable-org-config))
+
+(defun my/toggle-theme ()
+  (interactive)
+  (if (eq my/theme 'dark)
+      (progn
+	(disable-theme my/dark-theme)
+	(load-theme my/light-theme t)
+	(set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
+	(setq my/theme 'light))
+    (progn
+      (disable-theme my/light-theme)
+      (load-theme my/dark-theme t)
+      (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
+      (setq my/theme 'dark))))
+
+(global-set-key (kbd "C-c t") 'my/toggle-theme)
+
 ;;;; Magit
 
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
@@ -512,7 +541,8 @@
 ;;;; Pdf tools
 
 (pdf-tools-install)
-(setq pdf-view-midnight-colors (cons "#f6f3e8" "#242424"))
+;; wombat colors
+;; (setq pdf-view-midnight-colors (cons "#f6f3e8" "#242424"))
 
 ;;;; Outshine
 
