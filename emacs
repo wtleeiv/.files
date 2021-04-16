@@ -414,11 +414,9 @@
 (setq org-default-notes-file (concat org-directory "inbox.org"))
 
 (setq org-capture-templates
-      `(("n" "Note" entry (file+headline org-default-notes-file
-					 "Notes")
+      `(("n" "Note" entry (file+headline org-default-notes-file "Notes")
 	 "** %?")
-	("t" "Task" entry (file+headline org-default-notes-file
-					 "Tasks")
+	("t" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "** TODO %?")))
 
 (setq org-hide-leading-stars t)
@@ -433,12 +431,12 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
 
-(defun my/notes-inbox ()
-  (interactive)
-  (find-file org-default-notes-file))
+;; (defun my/notes-inbox ()
+;;   (interactive)
+;;   (find-file org-default-notes-file))
 
-(global-set-key (kbd "C-c n")
-		'my/notes-inbox)
+;; (global-set-key (kbd "C-c n")
+;; 		'my/notes-inbox)
 
 ;;; Packages
 (require 'package)
@@ -466,12 +464,27 @@
 
 ;;;;; Deft
 
-;; (setq deft-directory org-directory)
-;; (setq deft-recursive t)
+(setq deft-directory org-directory)
+(setq deft-recursive t)
 
-;; (global-set-key (kbd "C-c n s") 'deft)
+(global-set-key (kbd "C-c n s") 'deft)
 
-;;;;; Org roam -- v2
+;;;;; Org roam -- v1
+
+(setq org-roam-directory (concat org-directory "zettelkasten/"))
+(setq org-roam-index-file "20210416153028-index.org")
+;; (setq org-roam-buffer-position 'left)
+;; (setq org-roam-buffer-width 0.15)
+(setq org-roam-db-update-method 'immediate)
+
+(global-set-key (kbd "C-c n f") 'org-roam-find-file)
+(global-set-key (kbd "C-c n g") 'org-roam-graph)
+(global-set-key (kbd "C-c n c") 'org-roam-capture)
+(global-set-key (kbd "C-c n n") 'org-roam-jump-to-index)
+(global-set-key (kbd "C-c n i") 'org-roam-insert)
+(global-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
+
+;; org-roam -- v2 setup
 
 ;; (add-to-list 'load-path "~/bin/org-roam/")
 ;; (load-library "org-roam")
@@ -486,19 +499,10 @@
 ;; (define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
 ;; (define-key global-map (kbd "C-c n r") 'org-roam-buffer-toggle)
 
-;; org-roam -- v1 setup
+;;;;; nroam
 
-;; (setq org-roam-directory org-directory)
-;; (setq org-roam-buffer-position 'left)
-;; (setq org-roam-buffer-width 0.15)
-;; (setq org-roam-db-update-method 'immediate)
-
-;; (global-set-key (kbd "C-c n r") 'org-roam)
-;; (global-set-key (kbd "C-c n f") 'org-roam-find-file)
-;; (global-set-key (kbd "C-c n g") 'org-roam-graph)
-
-;; (global-set-key (kbd "C-c n i") 'org-roam-insert)
-;; (global-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
+(global-set-key (kbd "C-c n r") 'nroam-update)
+(add-hook 'org-mode-hook 'nroam-setup-maybe)
 
 ;;;; Diminish
 
