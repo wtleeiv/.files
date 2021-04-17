@@ -144,6 +144,8 @@
 ;; - ~initials~ didn't seem to work for me, use ~partial-completion~ first
 (setq completion-styles '(partial-completion substring flex))
 (fido-mode 1)
+;; don't complete with spc, so that I can type them in
+(define-key minibuffer-local-completion-map " " 'self-insert-command)
 ;; Highlight matching pair
 (setq show-paren-delay 0)
 (show-paren-mode 1)
@@ -473,8 +475,7 @@
 
 (setq org-roam-directory (concat org-directory "zettelkasten/"))
 (setq org-roam-index-file "20210416153028-index.org")
-;; (setq org-roam-buffer-position 'left)
-;; (setq org-roam-buffer-width 0.15)
+
 (setq org-roam-db-update-method 'immediate)
 
 (global-set-key (kbd "C-c n f") 'org-roam-find-file)
@@ -483,21 +484,6 @@
 (global-set-key (kbd "C-c n n") 'org-roam-jump-to-index)
 (global-set-key (kbd "C-c n i") 'org-roam-insert)
 (global-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
-
-;; org-roam -- v2 setup
-
-;; (add-to-list 'load-path "~/bin/org-roam/")
-;; (load-library "org-roam")
-;; (setq org-roam-mode-sections
-;;       (list 'org-roam-backlinks-insert-section
-;;             'org-roam-reflinks-insert-section
-;; 	    'org-roam-unlinked-references-insert-section))
-;; (setq org-roam-directory (concat org-directory "zettelkasten/"))
-;; (org-roam-setup)
-;; (define-key global-map (kbd "C-c n f") 'org-roam-node-find)
-;; (define-key global-map (kbd "C-c n c") 'org-roam-capture)
-;; (define-key global-map (kbd "C-c n i") 'org-roam-node-insert)
-;; (define-key global-map (kbd "C-c n r") 'org-roam-buffer-toggle)
 
 ;;;;; nroam
 
@@ -516,6 +502,7 @@
 
 (setq my/theme 'dark)
 (setq my/dark-theme 'doom-miramare)
+(setq doom-miramare-brighter-comments)
 (setq my/light-theme 'doom-flatwhite)
 
 (load-theme my/dark-theme t)
