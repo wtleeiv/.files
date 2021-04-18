@@ -23,72 +23,69 @@
 
 ;;;; Graphical
 
-(when window-system
-
 ;;;;; Load color theme
 
-  ;; wombat renders eww wikipedia formulas properly
-  ;; fyi: *help* buffer links are hard to see
-  ;; (load-theme 'wombat t)
-  ;; cooler-looking comments
-  ;; (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
-  ;; make the cursor easier to spot than the default grey
-  ;; (set-face-attribute 'cursor 'nil :background "#f6f3e8")
+;; wombat renders eww wikipedia formulas properly
+;; fyi: *help* buffer links are hard to see
+;; (load-theme 'wombat t)
+;; cooler-looking comments
+;; (set-face-attribute 'font-lock-comment-face 'nil :slant 'italic)
+;; make the cursor easier to spot than the default grey
+;; (set-face-attribute 'cursor 'nil :background "#f6f3e8")
 
 ;;;;; Make initial frame transparent
 
-  (set-frame-parameter (selected-frame) 'alpha '(77 . 55))
-  (add-to-list 'default-frame-alist '(alpha . (77 . 55)))
+(set-frame-parameter (selected-frame) 'alpha '(77 . 55))
+(add-to-list 'default-frame-alist '(alpha . (77 . 55)))
 
 ;;;;; Maximize window if it isn't already
 
-  (when (eq 'ns window-system)
-    ;; now fullscreen will preserve transparency
-    (setq ns-use-native-fullscreen nil)
-    (unless (eq 'maximized (frame-parameter (selected-frame)
-					    'fullscreen))
-      (toggle-frame-maximized)))
+(when (eq 'ns window-system)
+  ;; now fullscreen will preserve transparency
+  (setq ns-use-native-fullscreen nil))
+(unless (eq 'maximized (frame-parameter (selected-frame) 'fullscreen))
+  (toggle-frame-maximized))
 
 ;;;;; Setup initial window layout
 
-  (when (eq 'ns window-system)
-    (split-window-right)
-    (split-window-right)
-    (balance-windows)
-    (other-window 1))
+(when (eq 'ns window-system)
+  (split-window-right))
+(split-window-right)
+(balance-windows)
+(other-window 1)
+
 ;;;;; Fonts
 
 ;;;;;; Mac
 
-  (when (eq 'ns window-system)
-    (set-face-attribute 'default nil :family "Fira Code" :height 130)
-    (set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 1.0)
-    (set-face-attribute 'variable-pitch nil :family "ETBookOT" :height 1.2))
+(when (eq 'ns window-system)
+  (set-face-attribute 'default nil :family "Fira Code" :height 130)
+  (set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 1.0)
+  (set-face-attribute 'variable-pitch nil :family "ETBookOT" :height 1.2))
 
 ;;;;;; Linux
 
-  (when (eq 'x window-system)
-    (set-face-attribute 'default nil :family "Ubuntu Mono" :height 120)
-    (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono" :height 1.0)
-    (set-face-attribute 'fixed-pitch-serif nil :family "Ubuntu Mono" :height 1.0)
-    ;; doesn't seem to render ETBookOT properly
-    ;; - the characters do not resting on a horizontal line
-    (set-face-attribute 'variable-pitch nil :family "Source Sans Pro" :height 1.05))
+(when (eq 'x window-system)
+  (set-face-attribute 'default nil :family "Ubuntu Mono" :height 120)
+  (set-face-attribute 'fixed-pitch nil :family "Ubuntu Mono" :height 1.0)
+  (set-face-attribute 'fixed-pitch-serif nil :family "Ubuntu Mono" :height 1.0)
+  ;; doesn't seem to render ETBookOT properly
+  ;; - the characters do not resting on a horizontal line
+  (set-face-attribute 'variable-pitch nil :family "Source Sans Pro" :height 1.05))
 
 ;;;;; Transparency
   
-  (defun my/toggle-transparency ()
-    (interactive)
-    (let ((alpha (frame-parameter nil 'alpha)))
-      (set-frame-parameter
-       nil 'alpha
-       (if (eql (cond ((numberp alpha) alpha)
-		      ((numberp (cdr alpha)) (cdr alpha))
-		      ((numberp (cadr alpha)) (cadr alpha)))
-		100)
-	   '(77 . 55) '(100 . 100)))))
+(defun my/toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (set-frame-parameter nil 'alpha
+     (if (eql (cond ((numberp alpha) alpha)
+		    ((numberp (cdr alpha)) (cdr alpha))
+		    ((numberp (cadr alpha)) (cadr alpha)))
+	      100)
+	 '(77 . 55) '(100 . 100)))))
 
-  (global-set-key (kbd "C-c T") 'my/toggle-transparency))
+(global-set-key (kbd "C-c T") 'my/toggle-transparency)
 
 ;;;; Common
 
@@ -168,7 +165,7 @@
 (global-auto-revert-mode 1)
 
 ;; Remember last place in visited files
-(save-place-mode 1)
+;; (save-place-mode 1)
 
 ;; Recursive editing
 ;; - sometimes useful, sometimes I forget to turn them off
@@ -199,7 +196,19 @@
 
 ;;;;; Keybindings
 
-;;;;;; Setup modifier keys on Mac
+;;;;;; Differentiate C-m/C-i from RET/TAB
+
+;; this breaks terminal compatibility, but so what - I use vim in the terminal
+
+(define-key input-decode-map [?\C-i] [C-i]) ;; tab
+
+(define-key input-decode-map [?\C-m] [C-m]) ;; ret
+
+;; ;;;;;; Translate C-<tab> to M-<tab>
+
+;; (define-key local-function-key-map (kbd "C-<tab>") (kbd "M-<tab>"))
+
+;; ;;;;;; Setup modifier keys on Mac
 
 ;; no longer needed, since kinesis keyboard tap & hold is awesome
 ;; (when (eq 'ns window-system)
@@ -475,19 +484,23 @@
 
 (setq org-roam-directory (concat org-directory "zettelkasten/"))
 (setq org-roam-index-file "20210416153028-index.org")
-
 (setq org-roam-db-update-method 'immediate)
+;; (setq org-roam-buffer-position 'left)
+;; (setq org-roam-buffer-width 0.15)
+(setq org-roam-dailies-directory "journal/")
 
+(global-set-key (kbd "C-c n r") 'org-roam)
 (global-set-key (kbd "C-c n f") 'org-roam-find-file)
 (global-set-key (kbd "C-c n g") 'org-roam-graph)
 (global-set-key (kbd "C-c n c") 'org-roam-capture)
 (global-set-key (kbd "C-c n n") 'org-roam-jump-to-index)
 (global-set-key (kbd "C-c n i") 'org-roam-insert)
 (global-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
+(global-set-key (kbd "C-c j") 'org-roam-dailies-find-today)
 
 ;;;;; nroam
 
-(global-set-key (kbd "C-c n r") 'nroam-update)
+(global-set-key (kbd "C-c n u") 'nroam-update)
 (add-hook 'org-mode-hook 'nroam-setup-maybe)
 
 ;;;; Diminish
@@ -502,7 +515,7 @@
 
 (setq my/theme 'dark)
 (setq my/dark-theme 'doom-miramare)
-(setq doom-miramare-brighter-comments)
+(setq doom-miramare-brighter-comments t)
 (setq my/light-theme 'doom-flatwhite)
 
 (load-theme my/dark-theme t)
