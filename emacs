@@ -478,30 +478,40 @@
 (setq deft-directory org-directory)
 (setq deft-recursive t)
 
-(global-set-key (kbd "C-c n s") 'deft)
+(global-set-key (kbd "<C-m> s") 'deft)
 
 ;;;;; Org roam -- v1
 
 (setq org-roam-directory (concat org-directory "zettelkasten/"))
 (setq org-roam-index-file "20210416153028-index.org")
-(setq org-roam-db-update-method 'immediate)
+(setq org-roam-db-update-method 'idle-timer)
 ;; (setq org-roam-buffer-position 'left)
 ;; (setq org-roam-buffer-width 0.15)
 (setq org-roam-dailies-directory "journal/")
 
-(global-set-key (kbd "C-c n r") 'org-roam)
-(global-set-key (kbd "C-c n f") 'org-roam-find-file)
-(global-set-key (kbd "C-c n g") 'org-roam-graph)
-(global-set-key (kbd "C-c n c") 'org-roam-capture)
-(global-set-key (kbd "C-c n n") 'org-roam-jump-to-index)
-(global-set-key (kbd "C-c n i") 'org-roam-insert)
-(global-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
-(global-set-key (kbd "C-c j") 'org-roam-dailies-find-today)
+(global-set-key (kbd "<C-m> f") #'org-roam-find-file)
+(global-set-key (kbd "<C-m> g") #'org-roam-graph)
+(global-set-key (kbd "<C-m> i") #'org-roam-jump-to-index)
+(global-set-key (kbd "<C-m> l") #'org-roam-insert-immediate)
+(global-set-key (kbd "<C-m> L") #'org-roam-insert)
+(global-set-key (kbd "<C-m> c") #'org-roam-dailies-capture-today)
+(global-set-key (kbd "<C-m> t") #'org-roam-dailies-find-today)
+(global-set-key (kbd "<C-m> p") #'org-roam-dailies-find-yesterday)
+(global-set-key (kbd "<C-m> n") #'org-roam-dailies-find-tomorrow)
 
-;;;;; nroam
+(add-hook 'after-init-hook 'org-roam-mode)
 
-(global-set-key (kbd "C-c n u") 'nroam-update)
-(add-hook 'org-mode-hook 'nroam-setup-maybe)
+;; ;;;;; nroam
+
+;; nroam is a little buggy still
+;; it's messing with org-capture, and the read-only thing when I
+;; - disable the mode is annoying/troublesome
+;; I like the idea of having all links displayed in-buffer,
+;; - but the implementation needs work
+
+;; (global-set-key (kbd "<C-m> r") 'nroam-mode)
+
+;; (add-hook 'org-mode-hook 'nroam-setup-maybe)
 
 ;;;; Diminish
 
@@ -537,6 +547,10 @@
       (setq my/theme 'dark))))
 
 (global-set-key (kbd "C-c t") 'my/toggle-theme)
+
+;;;; vterm
+
+(setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
 
 ;;;; Magit
 
