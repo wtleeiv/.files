@@ -133,6 +133,12 @@
 (when (file-exists-p custom-file)
   (load custom-file :noerror))
 
+;;;;; Personal directory
+;; for eventual hacks
+
+(setq my/personal-directory (expand-file-name "wtleeiv/" user-emacs-directory))
+(add-to-list 'load-path my/personal-directory)
+
 ;;;;; Modes
 
 ;;;;;; Display-modifying
