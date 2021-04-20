@@ -307,7 +307,7 @@
   (interactive)
   (find-file user-init-file))
 
-(global-set-key (kbd "C-c e") 'my/edit-config)
+(global-set-key (kbd "C-c c") 'my/edit-config)
 
 ;;;;;; Tldr search
 
@@ -439,7 +439,7 @@
 (setq org-src-confirm-babel-evaluate nil)
 
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
+;; (global-set-key (kbd "C-c c") 'org-capture) 
 (global-set-key (kbd "C-c l") 'org-store-link)
 
 ;; (defun my/notes-inbox ()
