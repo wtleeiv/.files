@@ -46,14 +46,6 @@
 (unless (eq 'maximized (frame-parameter (selected-frame) 'fullscreen))
   (toggle-frame-maximized))
 
-;;;;; Setup initial window layout
-
-(when (eq 'ns window-system)
-  (split-window-right))
-(split-window-right)
-(balance-windows)
-(other-window 1)
-
 ;;;;; Fonts
 
 ;;;;;; Mac
