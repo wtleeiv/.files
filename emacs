@@ -448,7 +448,7 @@
 (setq org-hide-emphasis-markers t)
 (setq org-list-allow-alphabetical t)
 (setq org-pretty-entities t) ;; toggle with C-c C-x \
-(setq org-return-follows-link t)
+(setq org-return-follows-link nil)
 (setq org-src-preserve-indentation t)
 (setq org-src-confirm-babel-evaluate nil)
 
