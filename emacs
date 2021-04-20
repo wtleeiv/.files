@@ -301,6 +301,14 @@
 
 ;;;;; Functions and "C-c" bindings
 
+;;;;;; Find scratch buffer
+
+(defun my/scratch-buffer ()
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
+(global-set-key (kbd "C-c s") 'my/scratch-buffer)
+
 ;;;;;; Easy config editing
 
 (defun my/edit-config ()
