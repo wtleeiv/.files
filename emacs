@@ -356,7 +356,7 @@
 				last-nonmenu-event
                               ;; Fake it -- ensure popup is displayed
                               '(mouse-1 POSITION 1))))
-    (if (y-or-n-p "Time to take a break")
+    (if (y-or-n-p "Have you taken a break?")
 	(progn
 	  (org-timer-set-timer org-timer-default-timer)
 	  (message "Good boy, very mart :)"))
