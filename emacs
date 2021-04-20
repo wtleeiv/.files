@@ -493,10 +493,11 @@
 (setq org-roam-directory (concat org-directory "zettelkasten/"))
 (setq org-roam-index-file "20210416153028-index.org")
 (setq org-roam-db-update-method 'idle-timer)
-;; (setq org-roam-buffer-position 'left)
+(setq org-roam-buffer-position 'left)
 ;; (setq org-roam-buffer-width 0.15)
 (setq org-roam-dailies-directory "journal/")
 
+(global-set-key (kbd "<C-m> m") #'org-roam)
 (global-set-key (kbd "<C-m> f") #'org-roam-find-file)
 (global-set-key (kbd "<C-m> g") #'org-roam-graph)
 (global-set-key (kbd "<C-m> i") #'org-roam-jump-to-index)
