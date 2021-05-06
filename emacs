@@ -525,6 +525,10 @@
 (diminish 'highlight-changes-mode)
 (diminish 'eldoc-mode)
 
+;;;; Ace link
+
+(ace-link-setup-default)
+
 ;;;; Doom themes
 
 (setq doom-themes-enable-bold t)
