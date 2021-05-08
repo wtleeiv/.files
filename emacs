@@ -23,7 +23,7 @@
 
 ;;;; Graphical
 
-;;;;; Load color theme
+;;;;; Default color theme
 
 ;; wombat renders eww wikipedia formulas properly
 ;; fyi: *help* buffer links are hard to see
@@ -33,12 +33,7 @@
 ;; make the cursor easier to spot than the default grey
 ;; (set-face-attribute 'cursor 'nil :background "#f6f3e8")
 
-;;;;; Make initial frame transparent
-
-(set-frame-parameter (selected-frame) 'alpha '(77 . 55))
-(add-to-list 'default-frame-alist '(alpha . (77 . 55)))
-
-;;;;; Maximize window if it isn't already
+;;;;; Maximize window
 
 (when (eq 'ns window-system)
   ;; now fullscreen will preserve transparency
@@ -66,7 +61,7 @@
   (set-face-attribute 'variable-pitch nil :family "Source Sans Pro" :height 1.05))
 
 ;;;;; Transparency
-  
+
 (defun my/toggle-transparency ()
   (interactive)
   (let ((alpha (frame-parameter nil 'alpha)))
@@ -78,14 +73,18 @@
 	 '(77 . 55) '(100 . 100)))))
 
 (global-set-key (kbd "C-c T") 'my/toggle-transparency)
+  
+;;;;;; Initial frame transparency
+
+(set-frame-parameter (selected-frame) 'alpha '(77 . 55))
+(add-to-list 'default-frame-alist '(alpha . (77 . 55)))
 
 ;;;; Common
 
 ;;;;; Variables -- setq-default
 
 (setq-default cursor-type 'bar)
-;; half-screen on chromebook
-(setq-default fill-column 80)
+(setq-default fill-column 80) ; half-screen on chromebook
 
 ;;;;; Variables -- setq
 
@@ -96,10 +95,10 @@
 (setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
 (setq auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t)))
 
-(setq apropos-do-all t) ; better apropos searching
+(setq apropos-do-all t) ; better (but slower) apropos searching
 (setq buffer-file-coding-system 'utf-8-unix)
 (setq confirm-kill-processes nil)
-;; delete-by-moving-to-trash t
+;; (setq delete-by-moving-to-trash t)
 (setq dired-listing-switches "-alh")
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -126,8 +125,8 @@
   (load custom-file :noerror))
 
 ;;;;; Personal directory
-;; for eventual hacks
 
+;; for eventual hacks
 (setq my/personal-directory (expand-file-name "wtleeiv/" user-emacs-directory))
 (add-to-list 'load-path my/personal-directory)
 
@@ -135,17 +134,9 @@
 
 ;;;;;; Display-modifying
 
-;; Completion
-;; - ~initials~ didn't seem to work for me, use ~partial-completion~ first
-(setq completion-styles '(partial-completion substring flex))
-(fido-mode 1)
-;; don't complete with spc, so that I can type them in
-(define-key minibuffer-local-completion-map " " 'self-insert-command)
 ;; Highlight matching pair
 (setq show-paren-delay 0)
 (show-paren-mode 1)
-;; Wraps with active region!
-(electric-pair-mode 1)
 ;; Column number in modeline
 (column-number-mode 1)
 ;; Display time
@@ -161,28 +152,33 @@
 ;; - will not try to revert remote (tramp) files
 ;; - auto-revert-tail-mode *does* work for remote files
 (global-auto-revert-mode 1)
-
+;; Wraps with active region!
+(electric-pair-mode 1)
 ;; Remember last place in visited files
 ;; (save-place-mode 1)
-
 ;; Recursive editing
 ;; - sometimes useful, sometimes I forget to turn them off
 ;; - exit minibuffer session with "C-]"
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
 
+;;;;;;; Completion
+
+;; ~initials~ didn't seem to work for me, use ~partial-completion~ first
+(setq completion-styles '(partial-completion substring flex))
+(fido-mode 1)
+;; Don't complete with SPC, so that I can type them in
+(define-key minibuffer-local-completion-map " " 'self-insert-command)
+
 ;;;;; Hooks
 
 ;; "y/n" is good-enough, and less intrusive
 (fset 'yes-or-no-p 'y-or-n-p)
-
 ;; Clean up buffers on save
 ;; - disable, since this might affect TRAMP buffers
 ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 ;; Garbage collect when idle
-;;(add-hook 'focus-out-hook 'garbage-collect)
-
+;; (add-hook 'focus-out-hook 'garbage-collect)
 ;; Report start-up statistics
 (add-hook 'emacs-startup-hook
           (lambda ()
@@ -197,9 +193,7 @@
 ;;;;;; Differentiate C-m/C-i from RET/TAB
 
 ;; this breaks terminal compatibility, but so what - I use vim in the terminal
-
 (define-key input-decode-map [?\C-i] [C-i]) ;; tab
-
 (define-key input-decode-map [?\C-m] [C-m]) ;; ret
 
 ;; ;;;;;; Translate C-<tab> to M-<tab>
@@ -239,18 +233,18 @@
 
 (require 'view)
 (setq view-read-only t)
-;; don't remap view mode search "s", since "n" and "p" wont work
+;; Don't remap view mode search "s", since "n" and "p" wont work
 
 ;;;;;;; Editing
 
-;; rebinds center-line, center-paragraph
+;; Rebinds center-line, center-paragraph
 (global-set-key (kbd "M-o") 'other-window)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "C-x C-M-t") 'transpose-regions)
 
-;; explicitly map <home> and <end>
+;; Explicitly map <home> and <end>
 ;; - desktop maps them to beg/end-of-line
 ;; - and C-<home>/<end> to beg/end-of-buffer
 (global-set-key (kbd "<home>") 'beginning-of-buffer)
