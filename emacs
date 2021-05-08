@@ -83,40 +83,40 @@
 
 ;;;;; Variables -- setq-default
 
-(setq-default cursor-type 'bar
-	      ;; half-screen on chromebook
-	      fill-column 80)
+(setq-default cursor-type 'bar)
+;; half-screen on chromebook
+(setq-default fill-column 80)
 
 ;;;;; Variables -- setq
 
-(setq user-full-name "Tyler Lee"
-      user-mail-address "wtleeiv@gmail.com"
+(setq user-full-name "Tyler Lee")
+(setq user-mail-address "wtleeiv@gmail.com")
 
-      default-directory "~/"
-      backup-directory-alist '(("" . "~/.emacs.d/backup/"))
-      auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t))
+(setq default-directory "~/")
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
+(setq auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t)))
 
-      apropos-do-all t ; better apropos searching
-      buffer-file-coding-system 'utf-8-unix
-      confirm-kill-processes nil
-      ;; delete-by-moving-to-trash t
-      dired-listing-switches "-alh"
-      ediff-split-window-function 'split-window-horizontally
-      ediff-window-setup-function 'ediff-setup-windows-plain
-      ;; focus help window when created
-      ;; - so I can close them easier with "q"
-      help-window-select t
-      inhibit-startup-message t
-      initial-scratch-message nil
-      require-final-newline t
-      ring-bell-function 'ignore
-      sentence-end-double-space nil
-      set-mark-command-repeat-pop t
-      shift-select-mode nil
-      ;; prevent horizontal split
-      split-height-threshold nil
-      uniquify-buffer-name-style 'post-forward
-      vc-follow-symlinks t)
+(setq apropos-do-all t) ; better apropos searching
+(setq buffer-file-coding-system 'utf-8-unix)
+(setq confirm-kill-processes nil)
+;; delete-by-moving-to-trash t
+(setq dired-listing-switches "-alh")
+(setq ediff-split-window-function 'split-window-horizontally)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; focus help window when created
+;; - so I can close them easier with "q"
+(setq help-window-select t)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(setq require-final-newline t)
+(setq ring-bell-function 'ignore)
+(setq sentence-end-double-space nil)
+(setq set-mark-command-repeat-pop t)
+(setq shift-select-mode nil)
+;; prevent horizontal split
+(setq split-height-threshold nil)
+(setq uniquify-buffer-name-style 'post-forward)
+(setq vc-follow-symlinks t)
 
 ;;;;; Custom File
 
