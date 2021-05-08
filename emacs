@@ -507,6 +507,7 @@
 (global-set-key (kbd "<C-m> n") #'org-roam-dailies-find-tomorrow)
 
 (add-hook 'after-init-hook 'org-roam-mode)
+(diminish 'org-roam-mode)
 
 ;; ;;;;; nroam
 
@@ -577,6 +578,7 @@
 
 ;; emacs init file org-folding
 ;; - can use org speed commands -- maybe try out one day
+(defvar outline-minor-mode-prefix "\M-#")
 (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
 (add-hook 'emacs-lisp-mode-hook (lambda () (diminish 'outshine-mode)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (diminish 'outline-minor-mode)))
