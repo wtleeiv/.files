@@ -117,6 +117,7 @@
 ;; prevent horizontal split
 (setq split-height-threshold nil)
 (setq uniquify-buffer-name-style 'post-forward)
+(setq vc-make-backup-files t)
 (setq vc-follow-symlinks t)
 
 ;;;;; Custom File
