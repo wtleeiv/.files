@@ -531,7 +531,7 @@
 
 (setq my/theme 'dark)
 (setq my/dark-theme 'doom-miramare)
-(setq doom-miramare-brighter-comments t)
+;; (setq doom-miramare-brighter-comments nil)
 (setq my/light-theme 'doom-flatwhite)
 
 (load-theme my/dark-theme t)
