@@ -91,9 +91,11 @@
 (setq user-full-name "Tyler Lee")
 (setq user-mail-address "wtleeiv@gmail.com")
 
-(setq default-directory "~/")
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
-(setq auto-save-file-name-transforms `((".*"  "~/.emacs.d/backup/" t)))
+(setq my/backup-dir (expand-file-name (concat user-emacs-directory "backup/")))
+
+(setq default-directory (expand-file-name "~/"))
+(setq backup-directory-alist `(("" . ,my/backup-dir)))
+(setq auto-save-file-name-transforms `((".*" ,my/backup-dir t)))
 
 (setq apropos-do-all t) ; better (but slower) apropos searching
 (setq buffer-file-coding-system 'utf-8-unix)
@@ -585,9 +587,9 @@
 ;;;; Undo tree
 
 (setq undo-tree-auto-save-history t)
-(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/backup/")))
+(setq undo-tree-history-directory-alist `(("." . ,my/backup-dir)))
 ;; undo-tree might slow down TRAMP, re-enable lighter to test
-(setq undo-tree-mode-lighter "")
+;; (setq undo-tree-mode-lighter "")
 (setq undo-tree-visualizer-diff t)
 (setq undo-tree-visualizer-timestamps t)
 
