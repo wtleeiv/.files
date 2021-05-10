@@ -518,14 +518,14 @@
 
 ;; (add-hook 'org-mode-hook 'nroam-setup-maybe)
 
+;;;; Ace link
+
+(ace-link-setup-default)
+
 ;;;; Diminish
 
 (diminish 'highlight-changes-mode)
 (diminish 'eldoc-mode)
-
-;;;; Ace link
-
-(ace-link-setup-default)
 
 ;;;; Doom themes
 
@@ -556,10 +556,6 @@
       (setq my/theme 'dark))))
 
 (global-set-key (kbd "C-c t") 'my/toggle-theme)
-
-;;;; vterm
-
-(setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
 
 ;;;; Magit
 
@@ -595,6 +591,10 @@
 (setq undo-tree-visualizer-timestamps t)
 
 (global-undo-tree-mode)
+
+;;;; vterm
+
+(setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
 
 ;;; 
 ;;; my dot emacs grows
