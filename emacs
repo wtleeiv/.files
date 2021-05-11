@@ -326,19 +326,19 @@
 
 (global-set-key (kbd "C-c ?") 'my/tldr)
 
-;;;;;; Pulse line on common navigation jumps
+;; ;;;;;; Pulse line on common navigation jumps
 
-(defun my/pulse-point-line (&rest _)
-  (pulse-momentary-highlight-one-line (point)))
+;; (defun my/pulse-point-line (&rest _)
+;;   (pulse-momentary-highlight-one-line (point)))
 
-;; you can pulse current line with C-l
-(dolist (my/command '(scroll-up-command scroll-down-command
-		      isearch-repeat-forward isearch-repeat-backward
-		      windmove-up windmove-down
-		      windmove-left windmove-right
-		      forward-button backward-button
-		      recenter-top-bottom other-window))
-  (advice-add my/command :after 'my/pulse-point-line))
+;; ;; you can pulse current line with C-l
+;; (dolist (my/command '(scroll-up-command scroll-down-command
+;; 		      isearch-repeat-forward isearch-repeat-backward
+;; 		      windmove-up windmove-down
+;; 		      windmove-left windmove-right
+;; 		      forward-button backward-button
+;; 		      recenter-top-bottom other-window))
+;;   (advice-add my/command :after 'my/pulse-point-line))
 
 ;;;;;; Auto-pomodoro -- via org-timer-set-timer
 
@@ -521,6 +521,11 @@
 ;;;; Ace link
 
 (ace-link-setup-default)
+
+;;;; Beacon
+
+(setq beacon-lighter "")
+(beacon-mode 1)
 
 ;;;; Diminish
 
