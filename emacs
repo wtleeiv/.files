@@ -597,7 +597,7 @@
 
 (global-undo-tree-mode)
 
-;;;; vterm
+;;;; Vterm
 
 (setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
 
