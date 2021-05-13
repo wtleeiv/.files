@@ -198,7 +198,7 @@
 ;; this breaks terminal compatibility, but so what - I use vim in the terminal
 (define-key input-decode-map [?\C-i] [C-i]) ; tab
 (define-key input-decode-map [?\C-m] [C-m]) ; ret
-;; (define-key input-decode-map [?\C-\[] [C-\[]) ; esc
+(define-key input-decode-map [?\C-\[] (kbd "<C-[>")) ; esc
 
 ;; ;;;;;; Translate C-<tab> to M-<tab>
 
