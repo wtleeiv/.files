@@ -156,7 +156,7 @@
 ;; - auto-revert-tail-mode *does* work for remote files
 (global-auto-revert-mode 1)
 ;; Wraps with active region!
-(electric-pair-mode 1)
+;; (electric-pair-mode 1)
 ;; Remember last place in visited files
 ;; (save-place-mode 1)
 ;; Recursive editing
@@ -196,8 +196,9 @@
 ;;;;;; Differentiate C-m/C-i from RET/TAB
 
 ;; this breaks terminal compatibility, but so what - I use vim in the terminal
-(define-key input-decode-map [?\C-i] [C-i]) ;; tab
-(define-key input-decode-map [?\C-m] [C-m]) ;; ret
+(define-key input-decode-map [?\C-i] [C-i]) ; tab
+(define-key input-decode-map [?\C-m] [C-m]) ; ret
+;; (define-key input-decode-map [?\C-\[] [C-\[]) ; esc
 
 ;; ;;;;;; Translate C-<tab> to M-<tab>
 
@@ -585,6 +586,57 @@
 	  (lambda ()
 	    (outshine-mode -1)
 	    (outline-minor-mode -1)))
+
+;;;; Smartparens
+
+(require 'smartparens-config)
+
+(add-hook 'emacs-lisp-mode-hook #'smartparens-strict-mode)
+(add-hook 'clojure-mode-hook #'smartparens-strict-mode)
+
+(define-key smartparens-mode-map (kbd "C-M-f") #'sp-forward-sexp)
+(define-key smartparens-mode-map (kbd "C-M-b") #'sp-backward-sexp)
+
+(define-key smartparens-mode-map (kbd "C-M-n") #'sp-next-sexp)
+(define-key smartparens-mode-map (kbd "C-M-p") #'sp-previous-sexp)
+
+(define-key smartparens-mode-map (kbd "C-M-u") #'sp-backward-up-sexp)
+(define-key smartparens-mode-map (kbd "C-M-d") #'sp-down-sexp)
+
+(define-key smartparens-mode-map (kbd "C-M-l") #'sp-backward-down-sexp)
+(define-key smartparens-mode-map (kbd "C-M-r") #'sp-up-sexp)
+
+(define-key smartparens-mode-map (kbd "C-M-w") #'sp-beginning-of-sexp)
+(define-key smartparens-mode-map (kbd "C-M-y") #'sp-end-of-sexp)
+
+(define-key smartparens-mode-map (kbd "C-M-;") #'sp-forward-symbol)
+(define-key smartparens-mode-map (kbd "C-M-,") #'sp-backward-symbol)
+
+(define-key smartparens-mode-map (kbd "C-M-k") #'sp-kill-sexp)
+(define-key smartparens-mode-map (kbd "C-M-w") #'sp-copy-sexp)
+(define-key smartparens-mode-map (kbd "C-M-t") #'sp-transpose-sexp)
+(define-key smartparens-mode-map (kbd "C-M-SPC") #'sp-mark-sexp)
+
+(define-key smartparens-mode-map (kbd "M-(") #'sp-wrap-round)
+(define-key smartparens-mode-map (kbd "M-[") #'sp-wrap-square)
+(define-key smartparens-mode-map (kbd "M-{") #'sp-wrap-curly)
+
+(define-key smartparens-mode-map (kbd "C-M-<right>") #'sp-forward-slurp-sexp)
+(define-key smartparens-mode-map (kbd "C-M-<left>") #'sp-forward-barf-sexp)
+
+;; doesn't work on chromebook
+(define-key smartparens-mode-map (kbd "C-M-<up>") #'sp-backward-slurp-sexp)
+(define-key smartparens-mode-map (kbd "C-M-<down>") #'sp-backward-barf-sexp)
+
+(define-key smartparens-mode-map (kbd "M-D") #'sp-splice-sexp)
+(define-key smartparens-mode-map (kbd "M-R") #'sp-raise-sexp)
+(define-key smartparens-mode-map (kbd "M-C") #'sp-convolute-sexp)
+
+(define-key smartparens-mode-map (kbd "M-S") #'sp-split-sexp)
+(define-key smartparens-mode-map (kbd "M-J") #'sp-join-sexp)
+
+(define-key smartparens-mode-map (kbd "M-A") #'sp-absorb-sexp)
+(define-key smartparens-mode-map (kbd "M-E") #'sp-emit-sexp)
 
 ;;;; Undo tree
 
