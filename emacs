@@ -638,6 +638,11 @@
 (define-key smartparens-mode-map (kbd "M-A") #'sp-absorb-sexp)
 (define-key smartparens-mode-map (kbd "M-E") #'sp-emit-sexp)
 
+(define-key smartparens-mode-map (kbd "C-S-<right>") #'sp-select-next-thing)
+(define-key smartparens-mode-map (kbd "C-S-<left>") #'sp-select-previous-thing)
+(define-key smartparens-mode-map (kbd "C-S-<down>") #'sp-select-next-thing-exchange)
+(define-key smartparens-mode-map (kbd "C-S-<up>") #'sp-select-previous-thing-exchange)
+
 ;;;; Undo tree
 
 (setq undo-tree-auto-save-history t)
