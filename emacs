@@ -631,6 +631,7 @@
 (define-key smartparens-mode-map (kbd "M-D") #'sp-splice-sexp)
 (define-key smartparens-mode-map (kbd "M-R") #'sp-raise-sexp)
 (define-key smartparens-mode-map (kbd "M-C") #'sp-convolute-sexp)
+(define-key smartparens-mode-map (kbd "M-W") #'sp-rewrap-sexp)
 
 (define-key smartparens-mode-map (kbd "M-S") #'sp-split-sexp)
 (define-key smartparens-mode-map (kbd "M-J") #'sp-join-sexp)
