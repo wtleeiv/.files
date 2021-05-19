@@ -168,7 +168,7 @@
 ;;;;;;; Completion
 
 ;; ~initials~ didn't seem to work for me, use ~partial-completion~ first
-(setq completion-styles '(partial-completion substring flex))
+(setq completion-styles '(initials partial-completion substring))
 (fido-mode 1)
 ;; Don't complete with SPC, so that I can type them in
 (define-key minibuffer-local-completion-map " " 'self-insert-command)
