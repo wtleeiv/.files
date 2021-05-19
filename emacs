@@ -345,7 +345,7 @@
 
 (autoload 'org-timer-set-timer "org-timer" "get up and move!" t nil)
 ;; (with-eval-after-load "org-timer") -- not needed, since
-(setq org-timer-default-timer 20) ; defined with defvar
+(setq org-timer-default-timer 15) ; defined with defvar
 
 (defun my/auto-pomodoro ()   ; popup display code from ns-print-buffer
   (let ((last-nonmenu-event (if (listp last-nonmenu-event)
@@ -527,6 +527,14 @@
 
 (setq beacon-lighter "")
 (beacon-mode 1)
+
+;;;; Clj refactor
+
+(cljr-add-keybindings-with-prefix "C-c <C-m>")
+
+(add-hook 'clojure-mode-hook (lambda ()
+			       (clj-refactor-mode 1)
+			       (yas-minor-mode 1)))
 
 ;;;; Diminish
 
