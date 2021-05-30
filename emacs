@@ -101,6 +101,7 @@
 (setq buffer-file-coding-system 'utf-8-unix)
 (setq confirm-kill-processes nil)
 ;; (setq delete-by-moving-to-trash t)
+(setq dired-auto-revert-buffer t)
 (setq dired-listing-switches "-alh")
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
